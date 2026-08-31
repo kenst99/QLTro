@@ -509,6 +509,7 @@ function getUsage(roomId,month){
 }
 
 function payKey(roomId,month){ return roomId+'-'+month+'-'+YEAR; }
+function asObj(v){ return (v && typeof v==='object' && !Array.isArray(v)) ? v : {}; }
 function isPaid(roomId,month){ return !!payments[payKey(roomId,month)]; }
 function getCustomer(id){ return customers.find(function(c){return c.id===id;})||null; }
 
@@ -1707,9 +1708,9 @@ function applyStateData(data) {
     rooms = data.rooms || genRooms();
     customers = data.customers || [];
     settings = data.settings || {electricPrice:'4000', waterPrice:'12000', gasUrl:''};
-    utilities = data.utilities || {};
-    stateBills = data.stateBills || {};
-    payments = data.payments || {};
+    utilities = asObj(data.utilities);
+    stateBills = asObj(data.stateBills);
+    payments = asObj(data.payments);
     financeExpenses = data.financeExpenses || [];
     financeRecurringIncomes = data.financeRecurringIncomes || [];
     financeRecurringExpenses = data.financeRecurringExpenses || []; 
@@ -1901,9 +1902,9 @@ function loadState() {
     rooms                    = data.rooms;
     customers                = data.customers                || [];
     settings                 = data.settings                 || {electricPrice:'4000', waterPrice:'12000', gasUrl:''};
-    utilities                = data.utilities                || {};
-    stateBills               = data.stateBills               || {};
-    payments                 = data.payments                 || {};
+    utilities                = asObj(data.utilities);
+    stateBills               = asObj(data.stateBills);
+    payments                 = asObj(data.payments);
     financeExpenses          = data.financeExpenses          || [];
     financeRecurringIncomes  = data.financeRecurringIncomes  || [];
     financeRecurringExpenses = data.financeRecurringExpenses || [];
