@@ -192,7 +192,7 @@ label.fl{display:block;font-size:12px;font-weight:600;color:#374151;margin-botto
 .confirm-row .cf-label{color:#6b7280;font-weight:500}
 .confirm-row .cf-value{color:#111827;font-weight:700;word-break:break-word}
 /* Toast */
-.toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:10px;font-weight:600;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;animation:toastIn .3s ease}
+.toast{position:fixed;bottom:92px;right:24px;z-index:9999;padding:12px 20px;border-radius:10px;font-weight:600;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;animation:toastIn .3s ease}
 .toast-success{background:#16a34a;color:#fff}
 .toast-error{background:#dc2626;color:#fff}
 .toast-info{background:#4f46e5;color:#fff}
@@ -240,6 +240,42 @@ label.fl{display:block;font-size:12px;font-weight:600;color:#374151;margin-botto
 @media (max-width: 480px) {
   aside nav button { font-size: 11px; padding: 6px 10px; gap: 6px; }
 }
+
+/* Trợ lý giọng nói (nút micro nổi + bảng lệnh) */
+.vc-fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(79,70,229,.45);z-index:95;transition:transform .15s}
+.vc-fab:active{transform:scale(.93)}
+.vc-fab.on,.vc-mic.on{background:linear-gradient(135deg,#f43f5e,#e11d48);animation:vcPulse 1.3s infinite}
+@keyframes vcPulse{0%{box-shadow:0 0 0 0 rgba(244,63,94,.55)}70%{box-shadow:0 0 0 16px rgba(244,63,94,0)}100%{box-shadow:0 0 0 0 rgba(244,63,94,0)}}
+.vc-panel{position:fixed;right:16px;bottom:88px;width:390px;max-width:calc(100vw - 32px);background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(15,23,42,.28);border:1px solid #e2e8f0;z-index:96;display:flex;flex-direction:column;max-height:72vh;overflow:hidden}
+.vc-hd{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;background:#0f172a;color:#fff}
+.vc-hd .btn-icon{color:#cbd5e1}.vc-hd .btn-icon:hover{background:#1e293b}
+.vc-title{font-weight:800;font-size:13px;white-space:nowrap}
+.vc-status{font-size:11px;color:#a5b4fc;font-weight:600;flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis}
+.vc-status.warn{color:#fdba74;white-space:normal}
+.vc-bd{padding:14px;overflow-y:auto;flex:1}
+.vc-prompt{font-size:15px;font-weight:700;color:#1e293b;line-height:1.4}
+.vc-prompt.ok{color:#15803d}.vc-prompt.warn{color:#c2410c}
+.vc-sub{font-size:12px;color:#64748b;margin-top:4px;line-height:1.55}
+.vc-heard{margin-top:10px;padding:8px 10px;background:#f1f5f9;border-radius:8px;font-size:13px;color:#334155}
+.vc-heard:empty{display:none}
+.vc-heard .interim{color:#94a3b8;font-style:italic}
+.vc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.vc-chip{padding:6px 10px;border-radius:99px;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;font-size:12px;font-weight:600;text-align:left}
+.vc-chip:hover{background:#e0e7ff}
+.vc-chip.pri{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.vc-chip.warn{background:#fff7ed;border-color:#fdba74;color:#9a3412}
+.vc-ft{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #e2e8f0;background:#f8fafc;align-items:center}
+.vc-mic{width:42px;height:42px;border-radius:50%;background:#4f46e5;color:#fff;font-size:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.vc-seq{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.vc-seq-room{font-size:32px;font-weight:900;color:#4f46e5;line-height:1}
+.vc-seq-field{font-size:17px;font-weight:800}
+.vc-seq-field.e{color:#ca8a04}.vc-seq-field.w{color:#2563eb}
+.vc-seq-month{font-size:12px;color:#64748b;font-weight:600}
+.vc-seq-pre{font-size:13px;color:#15803d;font-weight:700;margin-top:6px}
+.util-tbl .num-input.vc-cur{background:#fef9c3;box-shadow:inset 0 0 0 3px #f43f5e}
+.util-tbl .num-input.vc-flash{background:#bbf7d0}
+#main-content{padding-bottom:72px}  /* chừa chỗ cho nút micro nổi, không che nội dung cuối trang */
+@media print{.vc-fab,.vc-panel{display:none!important}#main-content{padding-bottom:0}}
 </style>
 </head>
 <body>
@@ -412,6 +448,26 @@ label.fl{display:block;font-size:12px;font-weight:600;color:#374151;margin-botto
       <a id="btn-download-invoice-img" href="#" download="HoaDon.png" class="btn btn-outline">&#128229; Tải Về</a>
       <button class="btn btn-primary" onclick="copyInvoiceImageBlob()">&#128203; Copy Ảnh</button>
     </div>
+  </div>
+</div>
+
+<!-- TRỢ LÝ GIỌNG NÓI -->
+<button id="vc-fab" class="vc-fab" type="button" onclick="vcFabClick()" title="Ra lệnh bằng giọng nói" aria-label="Ra lệnh bằng giọng nói">&#127908;</button>
+<div id="vc-panel" class="vc-panel hidden" role="dialog" aria-label="Trợ lý giọng nói">
+  <div class="vc-hd">
+    <span class="vc-title">&#127908; Trợ lý giọng nói</span>
+    <span id="vc-status" class="vc-status"></span>
+    <button class="btn-icon" type="button" onclick="vcClose()" title="Đóng">&#10005;</button>
+  </div>
+  <div class="vc-bd">
+    <div id="vc-prompt" class="vc-prompt"></div>
+    <div id="vc-sub" class="vc-sub"></div>
+    <div id="vc-heard" class="vc-heard"></div>
+    <div id="vc-chips" class="vc-chips"></div>
+  </div>
+  <div class="vc-ft">
+    <input id="vc-text" class="form-control" placeholder="Hoặc gõ / đọc bằng bàn phím rồi Enter…" onkeydown="if(event.key==='Enter')vcSubmitText()">
+    <button id="vc-mic" class="vc-mic" type="button" onclick="vcMicClick()" title="Nói">&#127908;</button>
   </div>
 </div>
 
@@ -612,6 +668,7 @@ function render(){
     }, 80);
   }
 
+  if (typeof vcAfterRender === 'function') vcAfterRender();
   if (typeof saveState === 'function') saveState();
 }
 
@@ -1065,15 +1122,16 @@ function renderUtilities(){
       var u=utilities[r.id][m]||{e:'',w:''};
       var hl=m===selectedMonth;
       tbH+='<td style="padding:2px;background:'+(hl?'#fffbeb':'')+'">';
-      tbH+='<input class="num-input" value="'+(u.e!==''?numFmt(u.e):'')+'" placeholder="-" oninput="updateUtil(\''+r.id+'\','+m+',\'e\',this)" style="width:68px;border-bottom:2px solid '+(hl?'#fde047':'transparent')+'"></td>';
+      tbH+='<input class="num-input" data-k="'+r.id+'|'+m+'|e" value="'+(u.e!==''?numFmt(u.e):'')+'" placeholder="-" oninput="updateUtil(\''+r.id+'\','+m+',\'e\',this)" style="width:68px;border-bottom:2px solid '+(hl?'#fde047':'transparent')+'"></td>';
       tbH+='<td style="padding:2px;background:'+(hl?'#eff6ff':'')+';border-right:2px solid #e2e8f0">';
-      tbH+='<input class="num-input" value="'+(u.w!==''?numFmt(u.w):'')+'" placeholder="-" oninput="updateUtil(\''+r.id+'\','+m+',\'w\',this)" style="width:68px;border-bottom:2px solid '+(hl?'#93c5fd':'transparent')+'"></td>';
+      tbH+='<input class="num-input" data-k="'+r.id+'|'+m+'|w" value="'+(u.w!==''?numFmt(u.w):'')+'" placeholder="-" oninput="updateUtil(\''+r.id+'\','+m+',\'w\',this)" style="width:68px;border-bottom:2px solid '+(hl?'#93c5fd':'transparent')+'"></td>';
     }
     tbH+='</tr>';
   });
   var h='<div class="space-y-4">';
-  h+='<div class="page-header"><div class="section-title">&#9889; Quản lý Điện Nước</div>'+monthPicker('setMonth')+'</div>';
+  h+='<div class="page-header"><div class="section-title">&#9889; Quản lý Điện Nước</div><div class="flex gap-2 items-center">'+monthPicker('setMonth')+'<button class="btn btn-primary btn-sm" onclick="vcSeqStart()" title="Đọc chỉ số lần lượt từng phòng, không cần đọc mã phòng">&#127908; Đọc chỉ số</button></div></div>';
   h+='<div class="note-box note-yellow">&#9888; '+note+'</div>';
+  h+='<div class="note-box note-blue"><span>&#127908;</span><span>Bấm <b>Đọc chỉ số</b>: app chỉ vào từng ô (A1 điện → A1 nước → A2…), bạn chỉ cần đọc con số. Nói “bỏ qua”, “lùi”, “phòng B12”, “dừng” để điều khiển.</span></div>';
   h+='<div class="card p-4 flex flex-wrap gap-4 items-center" style="background:#eef2ff"><span class="font-bold text-indigo-800">Đơn giá:</span>'+
     '<div class="flex items-center gap-2"><label class="text-sm">Điện (đ/kWh):</label><input class="form-control" style="width:110px" value="'+numFmt(settings.electricPrice)+'" oninput="updateSettings(\'electricPrice\',this)"></div>'+
     '<div class="flex items-center gap-2"><label class="text-sm">Nước (đ/khối):</label><input class="form-control" style="width:110px" value="'+numFmt(settings.waterPrice)+'" oninput="updateSettings(\'waterPrice\',this)"></div></div>';
@@ -1218,10 +1276,11 @@ function renderInvoices(){
   return h;
 }
 
-function togglePayment(roomId){
-  var k=payKey(roomId,selectedMonth);
+function togglePayment(roomId, month){
+  month = month || selectedMonth;
+  var k=payKey(roomId,month);
   var r=rooms.find(function(x){return x.id===roomId;});
-  var inv=calcInvoice(r,selectedMonth);
+  var inv=calcInvoice(r,month);
   if(payments[k]){
       delete payments[k];
       showToast('Đã hủy xác nhận thu tiền phòng '+r.name,'info');
@@ -1229,7 +1288,7 @@ function togglePayment(roomId){
       // Lưu kèm roomId/month/year tường minh để phía Apps Script đối chiếu
       // chính xác, không phải tách chuỗi key (roomId+'-'+month+'-'+year) vốn
       // dễ lỗi nếu roomId có dấu '-'.
-      payments[k]={amount:inv.total,paidAt:new Date().toISOString(),month:selectedMonth,year:YEAR,roomId:roomId};
+      payments[k]={amount:inv.total,paidAt:new Date().toISOString(),month:month,year:YEAR,roomId:roomId};
       showToast('Xác nhận Đã Thu tiền phòng '+r.name,'success');
   }
   render();
@@ -1250,11 +1309,12 @@ function openInvoiceModal(roomId){
 var _invoiceImgBlob = null;
 var _invoiceImgRoomName = '';
 
-async function copyInvoiceImage(roomId){
+async function copyInvoiceImage(roomId, month, autoAction){
+  month = month || selectedMonth;
   var r = rooms.find(function(x){return x.id===roomId;});
   if(!r) return;
   var node = document.getElementById('report-capture-node');
-  node.innerHTML = buildInvoiceHTML(r, selectedMonth);
+  node.innerHTML = buildInvoiceHTML(r, month);
   showToast('Đang tạo ảnh hóa đơn...', 'info');
 
   try{
@@ -1267,8 +1327,10 @@ async function copyInvoiceImage(roomId){
     _invoiceImgRoomName = r.name;
     document.getElementById('invoice-img-result').src = dataUrl;
     document.getElementById('btn-download-invoice-img').href = dataUrl;
-    document.getElementById('btn-download-invoice-img').download = 'HoaDon_T'+selectedMonth+'_'+r.name+'.png';
+    document.getElementById('btn-download-invoice-img').download = 'HoaDon_T'+month+'_'+r.name+'.png';
     openModal('overlay-invoice-img');
+    if(autoAction==='copy') copyInvoiceImageBlob(true);
+    else if(autoAction==='download') document.getElementById('btn-download-invoice-img').click();
   }catch(err){
     console.error(err);
     showToast('Không thể tạo ảnh hóa đơn. Vui lòng dùng In HĐ.', 'error');
@@ -1277,7 +1339,7 @@ async function copyInvoiceImage(roomId){
   }
 }
 
-async function copyInvoiceImageBlob(){
+async function copyInvoiceImageBlob(fromVoice){
   if(!_invoiceImgBlob){ showToast('Chưa có ảnh để copy!', 'error'); return; }
   try{
     if(!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('no-clipboard-api');
@@ -1285,7 +1347,9 @@ async function copyInvoiceImageBlob(){
     showToast('Đã copy ảnh hóa đơn phòng '+_invoiceImgRoomName+'!', 'success');
   }catch(err){
     console.error(err);
-    showToast('Trình duyệt không hỗ trợ copy ảnh. Vui lòng bấm Tải Về.', 'error');
+    // Ra lệnh bằng giọng nói: một số trình duyệt (Safari) chỉ cho copy khi người dùng chạm tay
+    if(fromVoice && err && err.name === 'NotAllowedError') showToast('Bấm nút "Copy Ảnh" để copy (trình duyệt cần bạn chạm tay).', 'info');
+    else showToast('Trình duyệt không hỗ trợ copy ảnh. Vui lòng bấm Tải Về.', 'error');
   }
 }
 
@@ -1721,6 +1785,9 @@ function renderSettings() {
     h += '</div>';
     h += '</div>';
 
+    // Khu vực Trợ lý giọng nói
+    if (typeof vcSettingsHTML === 'function') h += vcSettingsHTML();
+
     h += '</div>';
     return h;
 }
@@ -2005,6 +2072,1302 @@ function loadState() {
     // showToast('Đã khôi phục dữ liệu từ thiết bị', 'success');
   }
 })();
+</script>
+<script>
+// ══════════════════════════════════════════════════════════════════════
+// TRỢ LÝ GIỌNG NÓI — miễn phí, xử lý ngay trên máy
+//  • Nghe: Web Speech API có sẵn trong Chrome (miễn phí). Tuỳ chọn: Gemini
+//    (key miễn phí ở Google AI Studio) để nghe chuẩn hơn với mã phòng.
+//  • Hiểu lệnh: bộ phân tích tiếng Việt viết riêng, KHÔNG cần AI trả phí.
+//    Đã tính các cách đọc/nhận dạng miền Nam: "lăm/nhăm"=5, "mốt"=1, "tư"=4,
+//    "hông"=không, "mơi"=mươi, "chăm"=trăm, "chiệu"=triệu, "gưỡi"=rưỡi,
+//    chữ cái "bê/bờ"=B, "xê/sê"=C; "À"/"Á" (mất số) → hỏi lại "A mấy?".
+// ══════════════════════════════════════════════════════════════════════
+
+// Lưu riêng (không nằm trong dữ liệu chính) → không bị xuất JSON / đẩy lên mây vì có API key
+var VC_LS_KEY = 'tro_manager_voice';
+var vcPrefs = { engine:'chrome', geminiKey:'', geminiModel:'gemini-flash-lite-latest', tts:true, fast:true, readback:true, seqOrder:'ew', seqSkipEmpty:false };
+(function(){
+  try { var p = JSON.parse(localStorage.getItem(VC_LS_KEY) || '{}'); Object.keys(vcPrefs).forEach(function(k){ if (p[k] !== undefined) vcPrefs[k] = p[k]; }); } catch(e) {}
+})();
+function vcSavePrefs(){ try { localStorage.setItem(VC_LS_KEY, JSON.stringify(vcPrefs)); } catch(e) {} }
+function vcSetPref(k, v){ vcPrefs[k] = v; vcSavePrefs(); }
+
+// ── CHUẨN HOÁ CHỮ ─────────────────────────────────────────
+function vcNFC(s){ return String(s == null ? '' : s).normalize('NFC').trim(); }
+function vcFold(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd'); }
+// Bỏ dấu nhưng giữ nguyên độ dài chuỗi → vị trí ký tự khớp với câu gốc (để cắt lấy giá trị có dấu)
+function vcFoldKeep(s){ var o = ''; for (var i = 0; i < s.length; i++){ var c = vcFold(s[i]); o += c.length === 1 ? c : ' '; } return o; }
+function vcTokens(text){
+  var s = vcFold(text);
+  s = s.replace(/(\d)[.](?=\d{3}(?!\d))/g, '$1').replace(/(\d),(?=\d)/g, '$1.');   // 1.234 → 1234 ; 2,5 → 2.5
+  s = s.replace(/([a-z])(?=\d)/g, '$1 ').replace(/(\d)(?=[a-z])/g, '$1 ');         // a5 → a 5 ; 2tr5 → 2 tr 5
+  s = s.replace(/[^a-z0-9.]+/g, ' ').replace(/(^|[^0-9])\.|\.(?![0-9])/g, '$1 ');
+  return s.split(' ').filter(Boolean);
+}
+function vcF(tk){ return ' ' + tk.join(' ') + ' '; }
+function vcHas(f, list){ for (var i = 0; i < list.length; i++) if (f.indexOf(' ' + list[i] + ' ') >= 0) return list[i]; return null; }
+function vcLow(s){ return ' ' + vcNFC(s).toLowerCase().replace(/[.,!?;:…"'“”]+/g, ' ').replace(/\s+/g, ' ').trim() + ' '; }
+function vcStarts(low, list){ for (var i = 0; i < list.length; i++) if (low.indexOf(' ' + list[i] + ' ') === 0) return true; return false; }
+
+var VC_YES = ['ừ','ừa','ờ','uh','uhm','um','ok','oke','okay','okê','ô kê','đồng ý','đúng','chuẩn','lưu','vâng','dạ','phải','được','có','xác nhận','chốt','yes','giữ','rồi','chính xác'];
+var VC_YES_A = ['ok','oke','okay','dong y','chuan','luu','vang','phai','duoc','xac nhan','chot','yes','giu'];
+var VC_NO = ['không','hông','hổng','khum','sai','chưa','nói lại','đọc lại','sửa lại','làm lại','nhầm','lộn','no'];
+var VC_NO_A = ['khong','sai','chua','noi lai','doc lai','no'];
+var VC_CANCEL = ['hủy','huỷ','hủy bỏ','huỷ bỏ','thôi','bỏ','dừng','thoát','đóng','tắt','cancel','stop','kết thúc'];
+var VC_CANCEL_A = ['huy','huy bo','thoi','thoat','cancel','stop','ket thuc'];
+var VC_DONE = ['xong','hết','không','hông','thôi','đủ','vậy thôi','không sửa nữa','không cần','khỏi'];
+var VC_DONE_A = ['xong','het','khong','thoi'];
+var VC_STOP = ['dừng','xong','kết thúc','thôi','nghỉ','stop','thoát','hết','tắt'];
+var VC_STOP_A = ['xong','ket thuc','thoi','stop','thoat'];
+function vcIs(low, list, listA){ return vcStarts(low, list) || vcStarts(' ' + vcFold(low).trim() + ' ', listA); }
+// Cả câu chỉ là từ lệnh (+ "đi/lại/nha/nhé..."): tránh bắt nhầm "đóng tiền phòng A2" thành "đóng"
+function vcOnly(low, list, listA){
+  var core = low.replace(/( (đi|lại|nha|nhé|nhe|luôn|rồi|ạ|nghen|giùm|dùm|khỏi))+ $/, ' ').trim() || low.trim();
+  return list.indexOf(core) >= 0 || listA.indexOf(vcFold(core)) >= 0;
+}
+function vcIsYes(low){ return vcIs(low, VC_YES, VC_YES_A); }
+function vcIsNo(low){ return vcIs(low, VC_NO, VC_NO_A); }
+function vcIsCancel(low){ return vcOnly(low, VC_CANCEL, VC_CANCEL_A); }
+function vcIsDone(low){ return vcOnly(low, VC_DONE, VC_DONE_A); }
+function vcIsStop(low){ return vcOnly(low, VC_STOP, VC_STOP_A); }
+
+// ── SỐ TIẾNG VIỆT ─────────────────────────────────────────
+var VC_DIG = {mot:1, hai:2, ba:3, bon:4, nam:5, sau:6, bay:7, tam:8, chin:9};
+var VC_UNIT = {mot:1, hai:2, ba:3, bon:4, tu:4, nam:5, lam:5, nham:5, sau:6, bay:7, tam:8, chin:9};
+function vcNumSym(tok, prev){
+  if (/^\d+(\.\d+)?$/.test(tok)) return {t:'N', v:tok};
+  if (VC_DIG[tok] != null) return {t:'D', v:String(VC_DIG[tok])};
+  var pt = prev ? prev.t : '', afterNum = pt === 'D' || pt === 'N';
+  switch (tok){
+    case 'khong': case 'hong': return {t:'D', v:'0', z:!prev};
+    case 'tu': return (afterNum || pt === 'T' || pt === 'S') ? {t:'D', v:'4'} : null;
+    case 'lam': case 'nham': return (afterNum || pt === 'T' || pt === 'S') ? {t:'D', v:'5'} : null;
+    case 'muoi': return (!prev || pt === 'D' || pt === 'S' || (pt === 'N' && prev.v.length === 1)) ? {t:'T'} : null;
+    case 'moi': case 'mui': case 'chuc': return (pt === 'D' || (pt === 'N' && prev.v.length === 1)) ? {t:'T'} : null;
+    case 'linh': case 'le': return pt === 'S' ? {t:'L'} : null;
+    case 'tram': case 'cham': return afterNum ? {t:'S', v:100} : null;
+    case 'nghin': case 'ngan': case 'ngin': case 'k':
+      return (afterNum || pt === 'T' || (pt === 'S' && prev.v === 100)) ? {t:'S', v:1000} : null;
+    case 'trieu': case 'chieu': case 'tr': case 'cu':
+      return (afterNum || pt === 'T' || (pt === 'S' && prev.v === 100)) ? {t:'S', v:1e6} : null;
+    case 'ruoi': case 'guoi': return pt === 'S' ? {t:'H'} : null;
+  }
+  return null;
+}
+function vcEvalNum(syms){
+  var total = 0, sec = 0, dig = '', lastBig = 0, hasL = false;
+  function tail(end){
+    if (dig === '') return 0;
+    var p = syms[end - 1], pp = syms[end - 2];
+    // "một trăm hai" = 120 (không phải 102)
+    if (dig.length === 1 && p && p.t === 'D' && pp && pp.t === 'S' && pp.v === 100 && !hasL) return Number(dig) * 10;
+    return parseFloat(dig);
+  }
+  for (var i = 0; i < syms.length; i++){
+    var s = syms[i];
+    if (s.t === 'D' || s.t === 'N'){ dig += s.v; continue; }
+    if (s.t === 'T'){ sec += (dig === '' ? 1 : parseFloat(dig)) * 10; dig = ''; continue; }
+    if (s.t === 'L'){ hasL = true; continue; }
+    if (s.t === 'H'){ var p = syms[i - 1]; if (p.v === 100) sec += 50; else total += p.v / 2; continue; }
+    if (s.v === 100){ sec += (dig === '' ? 1 : parseFloat(dig)) * 100; dig = ''; hasL = false; continue; }
+    var g = sec + tail(i);
+    total += (g || 1) * s.v; lastBig = s.v; sec = 0; dig = ''; hasL = false;
+  }
+  var last = syms[syms.length - 1], pl = syms[syms.length - 2];
+  if (dig.length === 1 && last && (last.t === 'D' || last.t === 'N') && pl && pl.t === 'S' && pl.v >= 1000){
+    total += Number(dig) * pl.v / 10;                       // "một nghìn hai" = 1200, "hai triệu ba" = 2.300.000
+  } else sec += tail(syms.length);
+  if (lastBig === 1e6 && sec > 0 && sec < 1000) sec *= 1000; // "hai triệu ba trăm" = 2.300.000
+  return Math.round(total + sec);
+}
+function vcNumAt(tk, i){
+  var syms = [], j = i, prev = null;
+  for (; j < tk.length; j++){
+    var s = vcNumSym(tk[j], prev);
+    if (!s) break;
+    if (prev && s.t === 'N' && (prev.t === 'N' || prev.t === 'D')) break;
+    if (prev && s.t === 'D' && prev.t === 'N') break;
+    syms.push(s); prev = s;
+  }
+  while (syms.length && syms[syms.length - 1].t === 'L'){ syms.pop(); j--; }
+  if (!syms.length) return null;
+  if (syms.length === 1 && syms[0].z) return null;          // "không" đứng một mình là từ phủ định
+  return {v:vcEvalNum(syms), start:i, end:j};
+}
+function vcFirstNum(tk){ for (var i = 0; i < tk.length; i++){ var n = vcNumAt(tk, i); if (n) return n; } return null; }
+// Số nhỏ (mã phòng, tháng): "5", "mười hai", "một hai" (=12), "12"
+function vcSmallNum(tk, j, max){
+  var a = tk[j], b = tk[j + 1], c = tk[j + 2];
+  var scale = /^(tram|cham|nghin|ngan|trieu|chieu|k|tr)$/;
+  if (a == null || !max) return null;
+  if (/^\d+$/.test(a)){
+    var n = Number(a);
+    if (n <= 9 && b != null && /^\d$/.test(b) && Number(a + b) <= max && !scale.test(c || '')) return {n:Number(a + b), end:j + 2};
+    return (n >= 1 && n <= max) ? {n:n, end:j + 1} : null;
+  }
+  if (a === 'muoi' || a === 'moi'){
+    var u = VC_UNIT[b];
+    if (u != null && 10 + u <= max && !scale.test(c || '')) return {n:10 + u, end:j + 2};
+    return 10 <= max ? {n:10, end:j + 1} : null;
+  }
+  var d = a === 'tu' ? null : VC_UNIT[a];                  // "lăm/nhăm" = 5 (hay nghe nhầm với "năm")
+  if (d != null){
+    if (d === 1 && VC_DIG[b] != null && 10 + VC_DIG[b] <= max && !scale.test(c || '')) return {n:10 + VC_DIG[b], end:j + 2};
+    return d <= max ? {n:d, end:j + 1} : null;
+  }
+  return null;
+}
+// Chỉ số đồng hồ: "1234", "một nghìn hai trăm ba mươi tư", "một hai ba bốn", "1 2 3 4"
+function vcReading(tk){
+  if (tk.length > 1 && tk.every(function(t){ return /^\d$/.test(t); })) return Number(tk.join(''));
+  var n = vcFirstNum(tk);
+  return n ? n.v : null;
+}
+function vcDigits(text){
+  var map = {khong:'0', hong:'0', mot:'1', hai:'2', ba:'3', bon:'4', tu:'4', nam:'5', lam:'5', nham:'5', sau:'6', bay:'7', tam:'8', chin:'9'};
+  return vcTokens(text).map(function(t){ return /^\d+$/.test(t) ? t : (map[t] || ''); }).join('');
+}
+function vcMoney(text){
+  var n = vcFirstNum(vcTokens(text));
+  if (!n || !n.v) return 0;
+  return n.v < 10000 ? n.v * 1000 : n.v;                   // "tiền cọc năm trăm" = 500.000
+}
+function vcTakeMonth(tk){
+  for (var i = 0; i < tk.length - 1; i++){
+    if (tk[i] !== 'thang') continue;
+    var nx = tk[i + 1], now = new Date().getMonth() + 1;
+    if (nx === 'gieng') return {m:1, start:i, end:i + 2};
+    if (nx === 'chap') return {m:12, start:i, end:i + 2};
+    if (nx === 'nay') return {m:now, start:i, end:i + 2};
+    if (nx === 'truoc') return {m:now === 1 ? 12 : now - 1, start:i, end:i + 2};
+    var r = vcSmallNum(tk, i + 1, 12);
+    if (r) return {m:r.n, start:i, end:r.end};
+  }
+  return null;
+}
+function vcParseDate(text){
+  var t = vcFold(text), m;
+  function mk(y, mo, d){
+    y = Number(y) || new Date().getFullYear(); mo = Number(mo); d = Number(d);
+    if (y < 100) y += (y > 40 ? 1900 : 2000);
+    var dt = new Date(y, mo - 1, d);
+    if (!mo || !d || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+    return y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  }
+  if ((m = t.match(/(\d{4})-(\d{1,2})-(\d{1,2})/))) return mk(m[1], m[2], m[3]);
+  if ((m = t.match(/(\d{1,2})\s*[\/\-.]\s*(\d{1,2})(?:\s*[\/\-.]\s*(\d{2,4}))?/))) return mk(m[3], m[2], m[1]);
+  var tk = vcTokens(text), d = null, mo = null, y = null;
+  for (var i = 0; i < tk.length; i++){
+    if (/^(ngay|mung|mong)$/.test(tk[i]) && d == null){ var a = vcNumAt(tk, i + 1); if (a && a.v >= 1 && a.v <= 31) d = a.v; }
+    else if (tk[i] === 'thang' && mo == null){ var b = tk[i + 1] === 'gieng' ? {n:1} : tk[i + 1] === 'chap' ? {n:12} : vcSmallNum(tk, i + 1, 12); if (b){ mo = b.n; if (d == null && i > 0){ var c0 = vcSmallNum(tk, i - 1, 31); if (c0 && c0.end === i) d = c0.n; } } }
+    else if (tk[i] === 'nam' && y == null && mo != null){ var c = vcNumAt(tk, i + 1); if (c) y = c.v; }
+  }
+  if (y == null){ var y4 = tk.filter(function(x){ return /^(19|20)\d\d$/.test(x); })[0]; if (y4) y = y4; }
+  return (d && mo) ? mk(y, mo, d) : null;
+}
+function vcTitle(s){ return s.split(/\s+/).filter(Boolean).map(function(w){ return w.charAt(0).toLocaleUpperCase('vi') + w.slice(1).toLocaleLowerCase('vi'); }).join(' '); }
+
+// ── NHẬN DIỆN PHÒNG ───────────────────────────────────────
+var VC_LETTER_ALIAS = {
+  a:['a','ay','ei','ey','ah'],
+  b:['b','be','bo','bi','bee'],
+  c:['c','xe','se','ce','si','xi','see','sea','co'],
+  d:['d','de','di','dee']
+};
+var VC_PARTIAL_OK = /^([a-z]|be|xe|se|ce)$/;   // chỉ những cách đọc này mới được coi là "chữ cái bị mất số"
+function vcRoomIndex(){
+  var idx = {alias:{}, map:{}, max:{}, special:[]};
+  rooms.forEach(function(r){
+    var m = /^([A-Za-z])\s*(\d+)$/.exec(String(r.name).trim());
+    if (m){
+      var L = m[1].toLowerCase(), n = Number(m[2]);
+      (idx.map[L] = idx.map[L] || {})[n] = r.id;
+      idx.max[L] = Math.max(idx.max[L] || 0, n);
+    } else {
+      var core = vcTokens(r.name).filter(function(t){ return t !== 'phong'; }).join(' ');
+      var al = core ? [core] : [];
+      if (core === 'ql') al.push('quan ly', 'q l', 'cu lo', 'qui lo', 'quy lo', 'cu lu');
+      idx.special.push({id:r.id, alias:al});
+    }
+  });
+  Object.keys(idx.map).forEach(function(L){
+    (VC_LETTER_ALIAS[L] || [L]).forEach(function(a){ if (!idx.alias[a]) idx.alias[a] = L; });
+  });
+  return idx;
+}
+function vcFindRoom(tk, loose){
+  var idx = vcRoomIndex(), best = null;
+  function take(c){ if (!best || c.score > best.score) best = c; }
+  for (var i = 0; i < tk.length; i++){
+    var hasP = i > 0 && /^(phong|p|phog|fong)$/.test(tk[i - 1]);
+    var st = hasP ? i - 1 : i;
+    idx.special.forEach(function(sp){
+      sp.alias.forEach(function(al){
+        var w = al.split(' ');
+        if (tk.slice(i, i + w.length).join(' ') === al) take({roomId:sp.id, start:st, end:i + w.length, score:hasP ? 6 : 4});
+      });
+    });
+    var tok = tk[i], L = idx.alias[tok];
+    if (!L && tok === 'anh' && (hasP || loose) && idx.map.a) L = 'a';   // "phòng anh năm" = A5
+    if (!L) continue;
+    var rn = vcSmallNum(tk, i + 1, idx.max[L]);
+    if (rn && idx.map[L][rn.n]){ take({roomId:idx.map[L][rn.n], start:st, end:rn.end, score:(hasP ? 6 : 4) + (tok.length === 1 ? 0.5 : 0)}); continue; }
+    if (VC_PARTIAL_OK.test(tok)) take({letter:L, start:st, end:i + 1, score:hasP ? 2 : 1, partial:true});
+  }
+  return best;
+}
+function vcRoomByName(f){
+  var hits = [];
+  rooms.forEach(function(r){
+    var c = getCustomer(r.customerId);
+    if (!c || !c.name) return;
+    var full = vcTokens(c.name).join(' ');
+    if (!full) return;
+    if (f.indexOf(' ' + full + ' ') >= 0){ hits.push({id:r.id, s:3}); return; }
+    var w = full.split(' '), given = w[w.length - 1];
+    if (given.length >= 2 && new RegExp(' (anh|chi|em|co|chu|ba|ong|bac|di|cau|khach|ban|thim|mo) ' + given + ' ').test(f)) hits.push({id:r.id, s:1});
+  });
+  if (!hits.length) return null;
+  hits.sort(function(a, b){ return b.s - a.s; });
+  if (hits.length > 1 && hits[0].s === hits[1].s) return null;   // trùng tên → không đoán
+  return hits[0].id;
+}
+function vcRoom(id){ return rooms.find(function(r){ return r.id === id; }) || null; }
+function vcU(rid, m){ return (utilities[rid] && utilities[rid][m]) || {e:'', w:''}; }
+function vcPrevMonth(m){ return m === 1 ? 12 : m - 1; }
+function vcRented(r, m){ return isActiveInMonth(r, m, YEAR) || !!getCustomer(r.customerId); }
+
+// ── TRƯỜNG THÔNG TIN CÓ THỂ SỬA ───────────────────────────
+var VC_FIELDS = [
+  {k:'name',       o:'c', label:'Tên khách',        type:'name',    kw:['ho va ten','ho ten','ten khach','ten']},
+  {k:'phone',      o:'c', label:'Số điện thoại',    type:'phone',   kw:['so dien thoai','dien thoai','sdt','so dt','di dong']},
+  {k:'cccd',       o:'c', label:'Số CCCD',          type:'idno',    kw:['can cuoc cong dan','can cuoc','cccd','cmnd','chung minh','cmt','dinh danh']},
+  {k:'address',    o:'c', label:'Địa chỉ',          type:'text',    kw:['dia chi thuong tru','dia chi','thuong tru','que quan','que']},
+  {k:'dob',        o:'c', label:'Ngày sinh',        type:'date',    kw:['ngay thang nam sinh','ngay sinh','sinh nhat']},
+  {k:'gender',     o:'c', label:'Giới tính',        type:'gender',  kw:['gioi tinh']},
+  {k:'issueDate',  o:'c', label:'Ngày cấp',         type:'date',    kw:['ngay cap']},
+  {k:'issuePlace', o:'c', label:'Nơi cấp',          type:'text',    kw:['noi cap']},
+  {k:'school',     o:'c', label:'Trường / Nơi làm', type:'text',    kw:['noi lam viec','cho lam','co quan','cong ty','truong']},
+  {k:'note',       o:'c', label:'Ghi chú',          type:'text',    kw:['ghi chu']},
+  {k:'price',      o:'r', label:'Tiền phòng',       type:'money',   kw:['tien phong','gia phong','gia thue','tien thue','tien nha']},
+  {k:'deposit',    o:'r', label:'Tiền cọc',         type:'money',   kw:['tien coc','dat coc','coc']},
+  {k:'startDate',  o:'r', label:'Ngày vào ở',       type:'date',    kw:['ngay vao o','ngay vao','ngay bat dau','ngay nhan phong','ngay den']},
+  {k:'endDate',    o:'r', label:'Hạn hợp đồng',     type:'date',    kw:['han hop dong','ngay het han','het han','ngay ket thuc','ngay tra phong','han hd']},
+  {k:'status',     o:'r', label:'Trạng thái phòng', type:'status',  kw:['trang thai']},
+  {k:'e',          o:'u', label:'Chỉ số điện',      type:'reading', kw:['chi so dien','so dien','cong to dien','dien']},
+  {k:'w',          o:'u', label:'Chỉ số nước',      type:'reading', kw:['chi so nuoc','so nuoc','dong ho nuoc','nuoc']}
+];
+function vcFieldDef(k){ return VC_FIELDS.find(function(f){ return f.k === k; }); }
+// Tìm trường được nhắc tới (từ khoá dài nhất thắng: "số điện thoại" > "điện")
+function vcMatchField(text){
+  var fk = vcFoldKeep(text), best = null;
+  VC_FIELDS.forEach(function(fd){
+    fd.kw.forEach(function(kw){
+      var re = new RegExp('(^|[^a-z0-9])' + kw.replace(/ /g, '\\s+') + '(?=$|[^a-z0-9])');
+      var m = re.exec(fk);
+      if (m && (!best || kw.length > best.kw.length)) best = {fd:fd, kw:kw, start:m.index + m[1].length, end:m.index + m[0].length};
+    });
+  });
+  return best;
+}
+// Lấy giá trị nói sau từ khoá: "... thành Nguyễn Văn An", "... là 2 triệu rưỡi"
+function vcValueAfter(text, from, needMarker){
+  var fk = vcFoldKeep(text), rest = fk.slice(from);
+  var mk = /(?:^|\s)(moi la|la moi|thanh la|thanh|la|sang|bang|moi)(?=\s|$)|[:=]/.exec(rest);
+  if (!mk && needMarker) return null;
+  var st = from + (mk ? mk.index + mk[0].length : 0), en = text.length;
+  var tailRoom = /\s+(?:cho |cua |o |tai )?(?:phong|p)\s+[a-z0-9]+(?:\s+[a-z0-9]+){0,2}\s*[.!?]*\s*$/.exec(fk.slice(st));
+  if (tailRoom) en = st + tailRoom.index;
+  var v = text.slice(st, en).replace(/^[\s:=,.-]+|[\s.,!?]+$/g, '');
+  return v || null;
+}
+function vcParseValue(fd, raw){
+  raw = vcNFC(raw);
+  function ok(v, show){ return {ok:true, value:v, show:show == null ? String(v) : show}; }
+  function err(msg){ return {ok:false, msg:msg}; }
+  var t = vcFold(raw), d;
+  switch (fd.type){
+    case 'name': d = vcTitle(raw.replace(/[.,!?]+$/, '')); return d.length >= 2 ? ok(d) : err('Chưa nghe rõ tên.');
+    case 'text': d = raw.replace(/[.!?]+$/, ''); return d ? ok(d.charAt(0).toLocaleUpperCase('vi') + d.slice(1)) : err('Chưa nghe rõ.');
+    case 'phone':
+      d = vcDigits(raw); if (/^84\d{9}$/.test(d)) d = '0' + d.slice(2);
+      return (d.length >= 9 && d.length <= 11) ? ok(d) : err('Số điện thoại chưa đủ (nghe được ' + d.length + ' số).');
+    case 'idno':
+      d = vcDigits(raw);
+      return (d.length === 12 || d.length === 9) ? ok(d) : err('CCCD cần 12 số, mới nghe được ' + d.length + ' số.');
+    case 'date': d = vcParseDate(raw); return d ? ok(d, fmtDate(d)) : err('Chưa rõ ngày. Nói ví dụ: "ngày 5 tháng 9 năm 2026".');
+    case 'money': d = vcMoney(raw); return d > 0 ? ok(String(d), fmt(d)) : err('Chưa rõ số tiền.');
+    case 'gender':
+      if (/(^|\s)nu(\s|$)/.test(t)) return ok('Nữ');
+      if (/(^|\s)nam(\s|$)/.test(t)) return ok('Nam');
+      return err('Nói "Nam" hoặc "Nữ".');
+    case 'status':
+      if (/coc/.test(t)) return ok('Đã nhận cọc');
+      if (/chuan bi|sap tra|tra phong|sap don/.test(t)) return ok('Chuẩn bị trả');
+      if (/trong/.test(t)) return ok('Trống');
+      if (/thue|dang o|co nguoi/.test(t)) return ok('Đang thuê');
+      return err('Nói: Trống, Đang thuê, Chuẩn bị trả hoặc Đã nhận cọc.');
+    case 'reading': d = vcReading(vcTokens(raw)); return d != null ? ok(String(d), fmtNum(d)) : err('Chưa rõ chỉ số.');
+  }
+  return err('Không hỗ trợ.');
+}
+function vcCurValue(fd, r, m){
+  var cu = getCustomer(r.customerId), v;
+  if (fd.o === 'c') v = cu ? cu[fd.k] : '';
+  else if (fd.o === 'r') v = r[fd.k];
+  else v = vcU(r.id, m)[fd.k];
+  if (v == null || v === '') return '(trống)';
+  if (fd.type === 'date') return fmtDate(v);
+  if (fd.type === 'money') return fmt(v);
+  if (fd.type === 'reading') return fmtNum(v);
+  return String(v);
+}
+
+// ── PHÂN TÍCH CÂU LỆNH ────────────────────────────────────
+var VC_TABS = [
+  ['dashboard', 'Tổng quan', ['tong quan','trang chu','dashboard']],
+  ['rooms', 'Phòng & Sơ đồ', ['so do phong','so do','danh sach phong']],
+  ['customers', 'Khách & Hợp đồng', ['khach hang','khach thue','hop dong','danh sach khach']],
+  ['utilities', 'Điện nước', ['dien nuoc','bang dien nuoc']],
+  ['invoices', 'Hóa đơn', ['hoa don']],
+  ['finance', 'Tài chính', ['tai chinh','thu chi','bao cao']],
+  ['tasks', 'Công việc', ['cong viec','su vu','viec can lam']],
+  ['settings', 'Cài đặt', ['cai dat','thiet lap']]
+];
+var VC_NEED_ROOM = {edit:1, copy_invoice:1, download_invoice:1, show_invoice:1, print_invoice:1, mark_paid:1, unmark_paid:1, set_utility:1, open_room:1};
+function vcUtilReadings(masked){
+  var out = {e:null, w:null};
+  for (var i = 0; i < masked.length; i++){
+    var f = null;
+    if (masked[i] === 'dien' && masked[i + 1] !== 'thoai') f = 'e';
+    else if (masked[i] === 'nuoc') f = 'w';
+    if (!f || out[f] != null) continue;
+    for (var j = i + 1; j < masked.length; j++){
+      if (masked[j] === 'dien' || masked[j] === 'nuoc') break;
+      var n = vcNumAt(masked, j);
+      if (n){ out[f] = n.v; break; }
+    }
+  }
+  return out;
+}
+function vcParse(text){
+  text = vcNFC(text);
+  var tk = vcTokens(text), f = vcF(tk), used = tk.map(function(){ return false; }), i;
+  var c = {text:text, action:null, roomId:null, letter:null, month:null, field:null, value:null, util:null, reading:null, readings:{e:null, w:null}, tab:null, score:0};
+  var mo = vcTakeMonth(tk);
+  if (mo){ c.month = mo.m; for (i = mo.start; i < mo.end; i++) used[i] = true; }
+  for (i = 0; i < tk.length - 1; i++) if (tk[i] === 'nam' && /^(19|20)\d\d$/.test(tk[i + 1])){ used[i] = used[i + 1] = true; }
+  var rm = vcFindRoom(tk.map(function(t, k){ return used[k] ? '_' : t; }));
+  if (rm){
+    if (rm.roomId) c.roomId = rm.roomId; else c.letter = rm.letter;
+    for (i = rm.start; i < rm.end; i++) used[i] = true;
+  }
+  if (!c.roomId){ var byName = vcRoomByName(f); if (byName){ c.roomId = byName; c.letter = null; } }
+  var masked = tk.map(function(t, k){ return used[k] ? '_' : t; });
+  var restCount = used.filter(function(u){ return !u; }).length;
+  var inv = vcHas(f, ['hoa don','bill','phieu thu']);
+  var copy = vcHas(f, ['copy','cop','coppy','copi','kop','sao chep','chep']);
+  var tab = null;
+  VC_TABS.forEach(function(t){ if (!tab && vcHas(f, t[2])) tab = t[0]; });
+  var fm = vcMatchField(text);
+
+  if (vcHas(f, ['huong dan','tro giup','giup do','lam duoc gi','noi gi','help'])) c.action = 'help';
+  else if (vcHas(f, ['ghi','nhap','doc','do','bat dau']) && vcHas(f, ['chi so','dien nuoc','so dien','so nuoc','dong ho','cong to']) && !c.roomId && !vcFirstNum(masked)) c.action = 'meter';
+  else if (copy && (inv || vcHas(f, ['anh']))) c.action = 'copy_invoice';
+  else if (inv && vcHas(f, ['anh']) && vcHas(f, ['tai','luu','download','tai ve','gui','lay','chup'])) c.action = vcHas(f, ['tai','luu','download','tai ve']) ? 'download_invoice' : 'copy_invoice';
+  else if (inv && vcHas(f, ['in'])) c.action = 'print_invoice';
+  else if (vcHas(f, ['huy thu','chua thu','chua tra','chua dong','bo thu','huy thanh toan','huy da thu'])) c.action = 'unmark_paid';
+  else if (vcHas(f, ['da thu','thu tien','da tra','da dong','da thanh toan','xac nhan thu','thanh toan','tra tien','dong tien','chuyen khoan','da chuyen','thu roi','tra roi','dong roi'])) c.action = 'mark_paid';
+  else if (inv && (c.roomId || c.letter)) c.action = 'show_invoice';
+  else if (vcHas(f, ['sua','doi','cap nhat','chinh sua','dieu chinh','thay doi','update','edit'])){
+    c.action = 'edit';
+    if (fm){
+      c.field = fm.fd.k; c.value = vcValueAfter(text, fm.end, true);
+      if (c.value == null && fm.fd.o === 'u'){ var nv = vcFirstNum(masked); if (nv) c.value = String(nv.v); }   // "sửa điện A5 1300"
+    }
+  }
+  else if ((c.roomId || c.letter) && (vcHas(masked.length ? vcF(masked) : f, ['dien','nuoc','chi so']))){
+    c.readings = vcUtilReadings(masked);
+    if (c.readings.e != null || c.readings.w != null){ c.action = 'set_utility'; }
+    else { var n0 = vcFirstNum(masked); if (n0){ c.action = 'set_utility'; c.reading = n0.v; c.util = vcHas(f, ['nuoc']) ? 'w' : 'e'; } }
+  }
+  if (!c.action && (c.roomId || c.letter)){
+    var n1 = vcFirstNum(masked);
+    if (n1 && restCount <= 6){ c.action = 'set_utility'; c.reading = n1.v; }                 // "A5 1234" → hỏi điện hay nước
+    else if (restCount <= 2 || vcHas(f, ['mo','xem','coi','thong tin'])) c.action = 'open_room';
+  }
+  if (!c.action && tab && (vcHas(f, ['mo','chuyen','vao','qua','xem','toi','den','sang','coi','trang']) || tk.length <= 4)){ c.action = 'navigate'; c.tab = tab; }
+  if (!c.action && c.month && tk.length <= 3) c.action = 'set_month';
+
+  c.score = (c.action ? 5 : 0) + (c.roomId ? 3 : (c.letter ? 1 : 0)) + (c.field ? 1 : 0) + (c.reading != null || c.readings.e != null || c.readings.w != null ? 1 : 0) + (c.month ? 0.3 : 0);
+  return c;
+}
+
+// ── NÓI (TTS) + TIẾNG BÍP ─────────────────────────────────
+var vcVoice = null;
+function vcPickVoice(){
+  if (!window.speechSynthesis) return;
+  var vs = speechSynthesis.getVoices() || [];
+  vcVoice = vs.filter(function(v){ return /^vi/i.test(v.lang); })[0] || null;
+}
+if (window.speechSynthesis){ vcPickVoice(); try { speechSynthesis.addEventListener('voiceschanged', vcPickVoice); } catch(e) {} }
+var vcSayTok = 0;
+function vcSay(text, cb){
+  var tok = ++vcSayTok, done = false;
+  function fin(){ if (done) return; done = true; if (cb && tok === vcSayTok) cb(); }
+  // Không có giọng tiếng Việt trên máy → bỏ qua (tránh đọc giọng Tây khó nghe)
+  if (!vcPrefs.tts || !window.speechSynthesis || !vcVoice || !text){ setTimeout(fin, 150); return; }
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'vi-VN'; u.voice = vcVoice; u.rate = 1.15;
+    u.onend = fin; u.onerror = fin;
+    speechSynthesis.speak(u);
+    setTimeout(fin, 1500 + text.length * 85);
+  } catch(e){ fin(); }
+}
+var vcAudioCtx = null;
+function vcBeep(ok){
+  try {
+    vcAudioCtx = vcAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    var o = vcAudioCtx.createOscillator(), g = vcAudioCtx.createGain();
+    o.frequency.value = ok ? 880 : 260; g.gain.value = 0.07;
+    o.connect(g); g.connect(vcAudioCtx.destination);
+    o.start(); o.stop(vcAudioCtx.currentTime + (ok ? 0.1 : 0.25));
+  } catch(e) {}
+}
+
+// ── GIAO DIỆN BẢNG GIỌNG NÓI ──────────────────────────────
+var VC = {open:false, mode:'cmd', ctx:null, seq:null, confirm:null, tries:0, misses:0, busy:false, closeTimer:null, chromeOnce:false};
+var VC_EXAMPLES = ['Sửa thông tin khách phòng B12', 'Copy ảnh hoá đơn tháng 9 phòng C3', 'Ghi chỉ số điện nước', 'Điện phòng A5 1234', 'Đã thu tiền phòng A2', 'Mở hoá đơn phòng C3'];
+function vcEl(id){ return document.getElementById(id); }
+function vcOpen(){
+  VC.open = true;
+  vcEl('vc-panel').classList.remove('hidden');
+  vcTouch();
+}
+function vcClose(){
+  vcStopListen();
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  var wasSeq = VC.mode === 'seq';
+  VC.open = false; VC.mode = 'cmd'; VC.ctx = null; VC.seq = null; VC.busy = false;
+  vcEl('vc-panel').classList.add('hidden');
+  vcTouch();
+  if (wasSeq) render();
+}
+function vcTouch(){ clearTimeout(VC.closeTimer); VC.closeTimer = null; }
+function vcStatus(text, tone){
+  var el = vcEl('vc-status');
+  el.textContent = text || '';
+  el.className = 'vc-status' + (tone ? ' ' + tone : '');
+}
+function vcShowHeard(text, interim){
+  var el = vcEl('vc-heard');
+  el.innerHTML = text ? (interim ? '<span class="interim">' + escH(text) + '…</span>' : '&#128172; ' + escH(text)) : '';
+}
+function vcShow(o){
+  vcEl('vc-prompt').innerHTML = o.html || escH(o.prompt || '');
+  vcEl('vc-prompt').className = 'vc-prompt' + (o.tone ? ' ' + o.tone : '');
+  vcEl('vc-sub').innerHTML = o.subHtml || escH(o.sub || '');
+  var ch = vcEl('vc-chips');
+  ch.innerHTML = '';
+  (o.chips || []).forEach(function(c){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'vc-chip' + (c.cls ? ' ' + c.cls : '');
+    b.textContent = c.label;
+    b.onclick = function(){ vcTouch(); vcStopListen(); c.fn(); };
+    ch.appendChild(b);
+  });
+}
+function vcExampleChips(){
+  return VC_EXAMPLES.map(function(t){ return {label:'“' + t + '”', fn:function(){ vcShowHeard(t); vcRoute([t], true); }}; });
+}
+function vcReset(){
+  VC.mode = 'cmd'; VC.ctx = null; VC.seq = null; VC.tries = 0;
+  vcShow({prompt:'Bạn muốn làm gì?', sub:'Bấm 🎤 rồi nói. Ví dụ:', chips:vcExampleChips()});
+  vcShowHeard('');
+}
+function vcFabClick(){
+  if (!VC.open){ vcOpen(); vcReset(); vcListen(); return; }
+  vcMicClick();
+}
+function vcMicClick(){
+  vcTouch();
+  if (VC.busy) return;
+  if (vcIsListening()){ vcFinishListen(); return; }
+  if (VC.mode === 'cmd') vcReset();
+  vcListen();
+}
+function vcSubmitText(){
+  var inp = vcEl('vc-text'), t = vcNFC(inp.value);
+  if (!t) return;
+  inp.value = '';
+  vcTouch(); vcStopListen();
+  vcShowHeard(t);
+  vcRoute([t], false);
+}
+// Xong một lệnh: báo kết quả rồi tự đóng bảng sau vài giây
+function vcDone(msg, warn){
+  VC.mode = 'cmd'; VC.ctx = null; VC.seq = null;
+  vcShow({prompt:msg, tone:warn ? 'warn' : 'ok', sub:'', chips:[{label:'🎤 Lệnh khác', cls:'pri', fn:function(){ vcReset(); vcListen(); }}]});
+  vcStatus('');
+  vcSay(msg);
+  vcTouch();
+  VC.closeTimer = setTimeout(function(){ if (VC.mode === 'cmd' && !vcIsListening()) vcClose(); }, warn ? 6000 : 3500);
+}
+function vcCancel(){ vcDone('Đã huỷ.'); }
+function vcHelp(){
+  VC.mode = 'cmd';
+  vcShow({prompt:'Các lệnh có thể nói:', subHtml:
+    '• <b>Sửa thông tin khách phòng B12</b> → app hỏi sửa gì (tên, SĐT, CCCD, địa chỉ, tiền phòng…)<br>' +
+    '• <b>Sửa tên khách phòng B12 thành Nguyễn Văn An</b><br>' +
+    '• <b>Copy ảnh hoá đơn tháng 9 phòng C3</b> / <b>Tải ảnh hoá đơn phòng C3</b><br>' +
+    '• <b>Mở / In hoá đơn phòng C3</b> · <b>Đã thu tiền phòng A2</b><br>' +
+    '• <b>Điện phòng A5 1234</b> · <b>Nước B3 56</b> · <b>Ghi chỉ số điện nước</b> (đọc lần lượt từng phòng)<br>' +
+    '• <b>Mở tài chính</b> · <b>Tháng 8</b> · <b>Huỷ</b><br>' +
+    '<i>Mẹo giọng miền Nam: nói kèm chữ “phòng” (“phòng A năm”) để máy nghe mã phòng chuẩn hơn.</i>',
+    chips:vcExampleChips()});
+}
+function vcNotUnderstood(t){
+  VC.mode = 'cmd'; VC.ctx = null;
+  vcShow({prompt:'Chưa hiểu lệnh: “' + t + '”', tone:'warn', sub:'Thử nói lại, hoặc chọn một lệnh mẫu:', chips:vcExampleChips()});
+  vcBeep(false);
+  vcSay('Mình chưa hiểu, bạn nói lại nhé.');
+}
+
+// ── NGHE: CHROME (Web Speech API) ─────────────────────────
+var vcRec = null, vcSession = 0, vcLastErr = '';
+function vcSupported(){ return !!(window.SpeechRecognition || window.webkitSpeechRecognition); }
+function vcIsListening(){ return !!(vcRec || vcMic); }
+function vcListening(on, text){
+  vcEl('vc-fab').classList.toggle('on', !!on);
+  vcEl('vc-mic').classList.toggle('on', !!on);
+  vcStatus(on ? (text || '🎙 Đang nghe…') : '');
+}
+function vcStopListen(){
+  vcSession++; vcSayTok++;
+  if (vcRec){ try { vcRec.abort(); } catch(e) {} vcRec = null; }
+  if (vcMic){ vcMic.cancel(); vcMic = null; }
+  vcListening(false);
+}
+function vcFinishListen(){                  // bấm mic lúc đang nghe = nói xong, xử lý luôn
+  if (vcRec){ try { vcRec.stop(); } catch(e) {} }
+  else if (vcMic) vcMic.stop();
+}
+function vcListen(){
+  if (!VC.open || VC.busy) return;
+  vcTouch();
+  var useGemini = vcPrefs.engine === 'gemini' && vcPrefs.geminiKey && !VC.chromeOnce;
+  VC.chromeOnce = false;
+  if (useGemini) return vcGeminiListen();
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR){
+    vcStatus('Trình duyệt này chưa hỗ trợ nghe giọng nói → dùng Chrome, hoặc bấm 🎤 trên bàn phím điện thoại và đọc vào ô bên dưới.', 'warn');
+    return;
+  }
+  vcStopListen();
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  var sid = ++vcSession, rec = new SR(), handled = false, lastInterim = '', timer = null;
+  vcRec = rec; vcLastErr = '';
+  rec.lang = 'vi-VN'; rec.continuous = false; rec.interimResults = true; rec.maxAlternatives = 5;
+  function commit(alts){
+    if (handled || sid !== vcSession) return;
+    handled = true; clearTimeout(timer);
+    vcRec = null;
+    try { rec.abort(); } catch(e) {}
+    vcListening(false);
+    vcShowHeard(alts[0]);
+    vcRoute(alts, false);
+  }
+  rec.onstart = function(){ if (sid === vcSession) vcListening(true); };
+  rec.onresult = function(e){
+    if (handled || sid !== vcSession) return;
+    var fin = null, txt = '';
+    for (var i = 0; i < e.results.length; i++){
+      var r = e.results[i];
+      if (r.isFinal){ fin = []; for (var j = 0; j < r.length; j++) if (r[j].transcript) fin.push(r[j].transcript); }
+      else txt += r[0].transcript;
+    }
+    if (fin && fin.length){ commit(fin); return; }
+    lastInterim = txt;
+    vcShowHeard(txt, true);
+    // Gửi sớm: câu đã đủ ý và không đổi trong ~0.5–0.9s thì xử lý luôn, khỏi chờ Chrome chốt câu
+    clearTimeout(timer);
+    var wait = vcPrefs.fast ? vcFastDelay(txt) : 0;
+    if (wait) timer = setTimeout(function(){ commit([lastInterim]); }, wait);
+  };
+  rec.onerror = function(e){ if (sid === vcSession) vcLastErr = e.error || ''; };
+  rec.onend = function(){
+    if (sid !== vcSession) return;
+    vcRec = null; vcListening(false);
+    if (handled) return;
+    handled = true; clearTimeout(timer);
+    if (lastInterim){ vcShowHeard(lastInterim); vcRoute([lastInterim], false); }
+    else vcOnSilence(vcLastErr);
+  };
+  try { rec.start(); }
+  catch(e){ vcRec = null; vcStatus('Không bật được micro: ' + e.message, 'warn'); }
+}
+function vcOnSilence(err){
+  var msg = {
+    'not-allowed':'Chưa cho phép micro. Bấm biểu tượng 🔒 cạnh địa chỉ web → cho phép Micro.',
+    'service-not-allowed':'Chưa cho phép micro. Bấm biểu tượng 🔒 cạnh địa chỉ web → cho phép Micro.',
+    'audio-capture':'Không tìm thấy micro trên thiết bị.',
+    'network':'Nghe giọng nói của Chrome cần có mạng Internet.',
+    'language-not-supported':'Thiết bị chưa hỗ trợ nhận giọng nói tiếng Việt.'
+  }[err];
+  if (msg){ vcStatus(msg, 'warn'); return; }
+  // Không nghe thấy gì: đang hỏi/ghi chỉ số thì nghe lại vài lần
+  if (VC.mode !== 'cmd' && VC.misses < (VC.mode === 'seq' ? 4 : 1)){ VC.misses++; vcListen(); return; }
+  VC.misses = 0;
+  vcStatus('Không nghe thấy gì. Bấm 🎤 để nói lại.', 'warn');
+}
+// Mất bao lâu (ms) im lặng thì coi như đã nói xong; 0 = chờ Chrome tự chốt câu
+function vcFastDelay(t){
+  var low = vcLow(t), tk = vcTokens(t), f = vcF(tk);
+  if (vcIsCancel(low)) return 450;
+  switch (VC.mode){
+    case 'confirm': return (vcIsYes(low) || vcIsNo(low)) ? 450 : 0;
+    case 'ask-field': return (vcIsDone(low) || (vcMatchField(t) && tk.length <= 4)) ? 550 : 0;
+    case 'ask-room': var rm = vcFindRoom(tk, true); return (rm && rm.roomId) ? 550 : 0;
+    case 'ask-util': return vcHas(f, ['dien','nuoc']) ? 450 : 0;
+    case 'ask-value':
+      var fd = VC.ctx && vcFieldDef(VC.ctx.field);
+      return (fd && (fd.type === 'gender' || fd.type === 'status') && vcParseValue(fd, t).ok) ? 550 : 0;
+    case 'seq':
+      if (vcIsStop(low) || vcHas(f, ['bo qua','tiep','lui','quay lai'])) return 450;
+      return vcReading(tk) != null ? 900 : 0;
+  }
+  var c = vcParse(t);
+  if (!c.action || (VC_NEED_ROOM[c.action] && !c.roomId)) return 0;
+  if (c.action === 'edit') return (!c.field) ? 900 : 0;
+  if (c.action === 'set_utility') return 0;
+  return 650;
+}
+
+// ── NGHE: GEMINI (tuỳ chọn, key miễn phí) ────────────────
+var vcMic = null;
+function vcRecord(sid){
+  return navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true, noiseSuppression:true, autoGainControl:true, channelCount:1}}).then(function(stream){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    var ctx = new AC(), src = ctx.createMediaStreamSource(stream), proc = ctx.createScriptProcessor(4096, 1, 1);
+    var chunks = [], started = false, firstSpeech = 0, silentMs = 0, totalMs = 0, calib = [], floor = 0.006;
+    return new Promise(function(resolve){
+      var ended = false;
+      function finish(keep){
+        if (ended) return; ended = true;
+        try { proc.disconnect(); src.disconnect(); } catch(e) {}
+        stream.getTracks().forEach(function(t){ t.stop(); });
+        try { ctx.close(); } catch(e) {}
+        if (vcMic === handle) vcMic = null;
+        resolve(keep && started ? {chunks:chunks.slice(Math.max(0, firstSpeech - 3)), rate:ctx.sampleRate} : null);
+      }
+      var handle = {stop:function(){ finish(true); }, cancel:function(){ finish(false); }};
+      vcMic = handle;
+      proc.onaudioprocess = function(e){
+        if (sid !== vcSession){ finish(false); return; }
+        var d = e.inputBuffer.getChannelData(0), sum = 0;
+        for (var i = 0; i < d.length; i++) sum += d[i] * d[i];
+        var rms = Math.sqrt(sum / d.length), ms = d.length / ctx.sampleRate * 1000;
+        totalMs += ms; chunks.push(new Float32Array(d));
+        if (totalMs < 350){ calib.push(rms); floor = Math.max(0.006, calib.reduce(function(a, b){ return a + b; }, 0) / calib.length); return; }
+        var thr = Math.max(0.015, floor * 2.5);
+        if (rms > thr){ if (!started){ started = true; firstSpeech = chunks.length - 1; } silentMs = 0; }
+        else if (started) silentMs += ms;
+        if (started && silentMs > 900) finish(true);          // ngừng nói ~0.9s → gửi
+        else if (!started && totalMs > 7000) finish(false);  // 7s không nói gì
+        else if (totalMs > 15000) finish(true);
+      };
+      src.connect(proc); proc.connect(ctx.destination);
+    });
+  });
+}
+function vcWav16k(chunks, rate){
+  var len = 0; chunks.forEach(function(c){ len += c.length; });
+  var all = new Float32Array(len), o = 0;
+  chunks.forEach(function(c){ all.set(c, o); o += c.length; });
+  var ratio = rate / 16000, n = Math.floor(len / ratio), pcm = new Int16Array(n);
+  for (var i = 0; i < n; i++){
+    var a = Math.floor(i * ratio), b = Math.min(len, Math.floor((i + 1) * ratio)), s = 0;
+    for (var j = a; j < b; j++) s += all[j];
+    var v = b > a ? s / (b - a) : 0; v = Math.max(-1, Math.min(1, v));
+    pcm[i] = v < 0 ? v * 0x8000 : v * 0x7fff;
+  }
+  var buf = new ArrayBuffer(44 + pcm.length * 2), dv = new DataView(buf);
+  function str(off, s){ for (var k = 0; k < s.length; k++) dv.setUint8(off + k, s.charCodeAt(k)); }
+  str(0, 'RIFF'); dv.setUint32(4, 36 + pcm.length * 2, true); str(8, 'WAVE'); str(12, 'fmt ');
+  dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+  dv.setUint32(24, 16000, true); dv.setUint32(28, 32000, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true);
+  str(36, 'data'); dv.setUint32(40, pcm.length * 2, true);
+  new Int16Array(buf, 44).set(pcm);
+  return new Uint8Array(buf);
+}
+function vcB64(u8){ var s = ''; for (var i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+function vcGeminiSystem(){
+  return 'Bạn là bộ chép lời (speech-to-text) cho app quản lý nhà trọ ở Cần Thơ; người nói thường giọng miền Nam.\n' +
+    'Chép lại đúng câu người dùng nói bằng tiếng Việt có dấu, rồi chuẩn hoá:\n' +
+    '- Mã phòng viết liền, chữ in hoa + số. Danh sách phòng: ' + rooms.map(function(r){ return r.name; }).join(', ') + '.\n' +
+    '  Chữ cái đọc kiểu Việt: "a/à/á/anh" = A, "bê/bờ/bi" = B, "xê/sê/cê/cờ" = C. VD: "phòng a năm" → "phòng A5", "bê mười hai" → "B12", "xê ba" → "C3".\n' +
+    '- Số viết bằng chữ số: "một nghìn hai trăm ba mươi tư" → "1234"; "lăm/nhăm" = 5, "mốt" = 1, "tư" = 4, "hông" = không. Tiền: "hai triệu rưỡi" → "2500000".\n' +
+    '- Tên người và địa danh viết hoa chữ cái đầu mỗi từ. Ngày giữ dạng "ngày 5 tháng 9 năm 2026".\n' +
+    '- Không thêm, không bớt, không giải thích. Không nghe rõ gì thì trả transcript rỗng.';
+}
+function vcModeHint(){
+  var c = VC.ctx, s = VC.seq;
+  switch (VC.mode){
+    case 'seq':
+      var r = s && vcRoom(s.list[s.idx]);
+      return 'Ngữ cảnh: người dùng đang đọc chỉ số công tơ ' + (s && s.f === 'w' ? 'nước' : 'điện') + (r ? ' phòng ' + r.name : '') + ' — thường chỉ là MỘT con số; hoặc lệnh ngắn: bỏ qua, lùi, dừng, phòng khác.';
+    case 'ask-field': return 'Ngữ cảnh: app vừa hỏi "Sửa thông tin nào?" (tên, số điện thoại, CCCD, địa chỉ, ngày sinh, tiền phòng, tiền cọc, hạn hợp đồng…).';
+    case 'ask-value': var fd = c && vcFieldDef(c.field); return 'Ngữ cảnh: người dùng đang đọc giá trị mới cho mục "' + (fd ? fd.label : '') + '".';
+    case 'ask-room': return 'Ngữ cảnh: app vừa hỏi "Phòng nào?" — người dùng đọc mã phòng.';
+    case 'confirm': return 'Ngữ cảnh: app vừa hỏi xác nhận (đồng ý / không / huỷ).';
+    case 'ask-util': return 'Ngữ cảnh: app hỏi "Điện hay nước?".';
+  }
+  return 'Ngữ cảnh: người dùng ra lệnh cho app (sửa thông tin khách, copy ảnh hoá đơn, ghi điện nước, đã thu tiền...).';
+}
+function vcGemini(parts, hint){
+  var model = vcPrefs.geminiModel || 'gemini-flash-lite-latest';
+  var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent';
+  var body = {
+    systemInstruction:{parts:[{text:vcGeminiSystem()}]},
+    contents:[{role:'user', parts:parts.concat([{text:hint}])}],
+    generationConfig:{temperature:0, responseMimeType:'application/json',
+      responseSchema:{type:'OBJECT', properties:{transcript:{type:'STRING'}}, required:['transcript']}}
+  };
+  var ctl = window.AbortController ? new AbortController() : null;
+  var to = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
+  return fetch(url, {method:'POST', headers:{'content-type':'application/json', 'x-goog-api-key':vcPrefs.geminiKey}, body:JSON.stringify(body), signal:ctl ? ctl.signal : undefined})
+    .then(function(res){
+      return res.json().catch(function(){ return null; }).then(function(j){
+        if (!res.ok){
+          var m = (j && j.error && j.error.message) || ('HTTP ' + res.status);
+          if (res.status === 429) m = 'Gemini tạm hết lượt miễn phí, thử lại sau ít phút';
+          else if (/API key/i.test(m)) m = 'Gemini API key không đúng';
+          throw new Error(m);
+        }
+        var p = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts;
+        var txt = p ? p.map(function(x){ return x.text || ''; }).join('') : '';
+        var o = {};
+        try { o = JSON.parse(txt); } catch(e){ o = {transcript:txt}; }
+        return vcNFC(o.transcript || '');
+      });
+    })
+    .catch(function(e){ throw new Error(e && e.name === 'AbortError' ? 'Gemini phản hồi quá lâu' : (e && e.message) || 'Lỗi kết nối Gemini'); })
+    .finally(function(){ clearTimeout(to); });
+}
+function vcGeminiListen(){
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ VC.chromeOnce = true; return vcListen(); }
+  vcStopListen();
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  var sid = ++vcSession;
+  vcListening(true, '🎙 Đang nghe (Gemini)… nói xong app tự gửi');
+  vcRecord(sid).then(function(rec){
+    if (sid !== vcSession) return;
+    vcListening(false);
+    if (!rec){ vcOnSilence('no-speech'); return; }
+    VC.busy = true; vcStatus('🤖 Gemini đang nghe…');
+    return vcGemini([{inlineData:{mimeType:'audio/wav', data:vcB64(vcWav16k(rec.chunks, rec.rate))}}], vcModeHint()).then(function(t){
+      VC.busy = false;
+      if (sid !== vcSession) return;
+      if (!t){ vcOnSilence('no-speech'); return; }
+      vcShowHeard(t);
+      vcRoute([t], true);
+    });
+  }).catch(function(e){
+    VC.busy = false;
+    if (sid !== vcSession) return;
+    vcListening(false);
+    vcStatus((e && e.message ? e.message : 'Lỗi Gemini') + ' → lần này nghe bằng Chrome.', 'warn');
+    VC.chromeOnce = true;
+    vcListen();
+  });
+}
+// Khi Chrome nghe sai mà có key Gemini: gửi các bản nghe được (chữ) để Gemini sửa lại
+function vcAIFix(alts, cb){
+  VC.busy = true; vcStatus('🤖 Nhờ Gemini sửa lỗi nghe…');
+  var sid = vcSession;
+  vcGemini([{text:'Các bản nhận dạng giọng nói (có thể nghe sai):\n' + alts.map(function(a, i){ return (i + 1) + '. ' + a; }).join('\n')}],
+    vcModeHint() + ' Hãy đoán câu người dùng thực sự nói và chép lại theo quy tắc.')
+    .then(function(t){ VC.busy = false; vcStatus(''); if (sid === vcSession) cb(t); })
+    .catch(function(e){ VC.busy = false; vcStatus(e.message, 'warn'); if (sid === vcSession) cb(''); });
+}
+
+// ── ĐIỀU PHỐI HỘI THOẠI ───────────────────────────────────
+var VC_HANDLERS = {
+  cmd:        {run:vcTryCmd,     fail:function(a){ vcNotUnderstood(a[0]); }},
+  'ask-room': {run:vcTryRoom,    fail:function(){ vcRetry(function(){ vcAskRoom('Chưa rõ phòng.'); }); }},
+  'ask-field':{run:vcTryField,   fail:function(){ vcRetry(function(){ vcAskField('Chưa rõ mục nào.'); }); }},
+  'ask-value':{run:vcTryValue,   fail:function(){}},
+  'ask-util': {run:vcTryUtil,    fail:function(){ vcRetry(vcAskUtil); }},
+  confirm:    {run:vcTryConfirm, fail:function(){ vcRetry(function(){ vcShowConfirm(true); }); }},
+  seq:        {run:vcSeqTry,     fail:function(){ vcSeqPrompt(true, 'Chưa nghe rõ số, đọc lại giúp nhé'); }}
+};
+function vcRoute(alts, noAI){
+  alts = (alts || []).map(vcNFC).filter(Boolean);
+  if (!alts.length) return;
+  vcTouch(); VC.misses = 0;
+  var low = vcLow(alts[0]);
+  if (VC.mode !== 'seq' && VC.mode !== 'cmd' && vcIsCancel(low)) return vcCancel();
+  if (VC.mode === 'cmd' && vcIsCancel(low)) return vcClose();
+  var h = VC_HANDLERS[VC.mode] || VC_HANDLERS.cmd;
+  try {
+    if (h.run(alts)) return;
+    if (!noAI && vcPrefs.geminiKey){
+      return vcAIFix(alts, function(t){
+        var h2 = VC_HANDLERS[VC.mode] || VC_HANDLERS.cmd;
+        if (t){ vcShowHeard('🤖 ' + t); if (h2.run([t].concat(alts))) return; }
+        h2.fail(t ? [t] : alts);
+      });
+    }
+    h.fail(alts);
+  } catch(e){
+    console.error(e);
+    vcDone('Có lỗi: ' + e.message, true);
+  }
+}
+function vcRetry(again){
+  VC.tries++;
+  if (VC.tries > 2) return vcDone('Chưa nghe rõ. Bạn thử lại lệnh nhé.', true);
+  vcBeep(false);
+  again();
+}
+
+// Lệnh mới
+function vcTryCmd(alts){
+  var best = null;
+  alts.forEach(function(a, i){ var c = vcParse(a); c.score -= i * 0.3; if (!best || c.score > best.score) best = c; });
+  if (!best || !best.action) return false;
+  vcRun(best);
+  return true;
+}
+function vcRun(c){
+  VC.ctx = c; VC.tries = 0;
+  if (VC_NEED_ROOM[c.action] && !c.roomId) return vcAskRoom();
+  var r = vcRoom(c.roomId), m = c.month || selectedMonth;
+  switch (c.action){
+    case 'help': return vcHelp();
+    case 'meter': return vcSeqStart();
+    case 'navigate':
+      if (c.month) selectedMonth = c.month;
+      switchTab(c.tab);
+      return vcDone('Đã mở ' + VC_TABS.find(function(t){ return t[0] === c.tab; })[1] + '.');
+    case 'set_month': setMonth(c.month); return vcDone('Đã chuyển sang tháng ' + c.month + '.');
+    case 'open_room': vcClose(); openRoomModal(r.id); return;
+    case 'show_invoice':
+      selectedMonth = m; selectedInvoiceRoomId = r.id; switchTab('invoices');
+      return isActiveInMonth(r, m, YEAR) ? vcDone('Hoá đơn phòng ' + r.name + ' tháng ' + m + '.') : vcDone('Phòng ' + r.name + ' không có hợp đồng thuê trong tháng ' + m + '.', true);
+    case 'print_invoice': selectedMonth = m; vcClose(); render(); openInvoiceModal(r.id); return;
+    case 'copy_invoice': case 'download_invoice':
+      if (!vcRented(r, m)) return vcDone('Phòng ' + r.name + ' không có khách thuê tháng ' + m + '.', true);
+      vcClose();
+      copyInvoiceImage(r.id, m, c.action === 'copy_invoice' ? 'copy' : 'download');
+      return;
+    case 'mark_paid': case 'unmark_paid': return vcPayConfirm();
+    case 'set_utility': return vcUtilCmd();
+    case 'edit': return vcEditNext();
+  }
+}
+function vcActionLabel(c){
+  return {edit:'Sửa thông tin', copy_invoice:'Copy ảnh hoá đơn', download_invoice:'Tải ảnh hoá đơn', show_invoice:'Xem hoá đơn', print_invoice:'In hoá đơn',
+    mark_paid:'Xác nhận đã thu tiền', unmark_paid:'Huỷ đã thu', set_utility:'Ghi điện nước', open_room:'Mở phòng'}[c.action] || '';
+}
+
+// Hỏi phòng
+function vcAskRoom(pre){
+  var c = VC.ctx, m = c.month || selectedMonth;
+  VC.mode = 'ask-room';
+  var q = c.letter ? 'Phòng ' + c.letter.toUpperCase() + ' số mấy?' : 'Phòng nào?';
+  var list = rooms.filter(function(r){
+    if (c.letter) return vcFold(r.name).charAt(0) === c.letter;
+    if (/invoice|paid/.test(c.action)) return vcRented(r, m);
+    if (c.action === 'edit') return !!getCustomer(r.customerId);
+    return true;
+  }).slice(0, 24);
+  vcShow({prompt:(pre ? pre + ' ' : '') + q, sub:vcActionLabel(c) + (c.month ? ' · tháng ' + c.month : ''),
+    chips:list.map(function(r){ return {label:r.name, fn:function(){ c.roomId = r.id; c.letter = null; vcRun(c); }}; })});
+  vcSay(q, vcListen);
+}
+function vcTryRoom(alts){
+  var c = VC.ctx, idx = vcRoomIndex();
+  for (var i = 0; i < alts.length; i++){
+    var tk = vcTokens(alts[i]), rm = vcFindRoom(tk, true);
+    if (rm && rm.roomId){ c.roomId = rm.roomId; break; }
+    if (c.letter){
+      for (var j = 0; j < tk.length; j++){ var n = vcSmallNum(tk, j, idx.max[c.letter]); if (n && idx.map[c.letter][n.n]){ c.roomId = idx.map[c.letter][n.n]; break; } }
+      if (c.roomId) break;
+    }
+    var byName = vcRoomByName(vcF(tk));
+    if (byName){ c.roomId = byName; break; }
+    if (rm && rm.letter) c.letter = rm.letter;
+  }
+  if (!c.roomId) return false;
+  c.letter = null;
+  vcRun(c);
+  return true;
+}
+
+// Sửa thông tin: hỏi mục → hỏi giá trị → xác nhận → lưu
+function vcEditNext(){
+  var c = VC.ctx, r = vcRoom(c.roomId), cu = getCustomer(r.customerId), pre = '';
+  var fd = c.field && vcFieldDef(c.field);
+  if (fd && fd.o === 'c' && !cu){ pre = 'Phòng ' + r.name + ' chưa có khách thuê.'; c.field = null; c.value = null; fd = null; }
+  if (!fd) return vcAskField(pre);
+  if (c.value == null || c.value === '') return vcAskValue();
+  var pv = vcParseValue(fd, c.value);
+  if (!pv.ok){ c.value = null; return vcAskValue(pv.msg); }
+  c.parsed = pv;
+  vcEditConfirm();
+}
+function vcAskField(pre){
+  var c = VC.ctx, r = vcRoom(c.roomId), cu = getCustomer(r.customerId), m = c.month || selectedMonth;
+  VC.mode = 'ask-field'; c.field = null; c.value = null; c.parsed = null;
+  var chips = VC_FIELDS.filter(function(fd){ return fd.o !== 'c' || cu; }).map(function(fd){
+    return {label:fd.label + (fd.o === 'u' ? ' T' + m : ''), fn:function(){ c.field = fd.k; c.value = null; vcEditNext(); }};
+  });
+  chips.push({label:'✓ Xong', cls:'pri', fn:function(){ vcDone('Xong!'); }});
+  vcShow({prompt:(pre ? pre + ' ' : '') + 'Sửa thông tin nào?', sub:'Phòng ' + r.name + (cu ? ' · Khách: ' + cu.name : ' · (chưa có khách)'), chips:chips});
+  vcSay((pre ? pre + ' ' : '') + 'Sửa thông tin nào?', vcListen);
+}
+function vcTryField(alts){
+  var low = vcLow(alts[0]), c = VC.ctx;
+  if (vcIsDone(low)){ vcDone('Xong!'); return true; }
+  for (var i = 0; i < alts.length; i++){
+    var fm = vcMatchField(alts[i]);
+    if (!fm) continue;
+    if (fm.fd.o === 'c' && !getCustomer(vcRoom(c.roomId).customerId)){ vcAskField('Phòng này chưa có khách thuê.'); return true; }
+    c.field = fm.fd.k;
+    c.value = vcValueAfter(alts[i], fm.end, false);        // "tên là Nguyễn Văn An" → có luôn giá trị
+    vcEditNext();
+    return true;
+  }
+  return false;
+}
+function vcAskValue(pre){
+  var c = VC.ctx, r = vcRoom(c.roomId), fd = vcFieldDef(c.field), m = c.month || selectedMonth;
+  VC.mode = 'ask-value';
+  var hint = {date:' · VD: “ngày 5 tháng 9 năm 2026”', money:' · VD: “2 triệu rưỡi”', phone:' · Đọc từng số', idno:' · Đọc đủ 12 số'}[fd.type] || '';
+  var chips = [];
+  if (fd.type === 'gender') chips = ['Nam', 'Nữ'].map(function(v){ return {label:v, fn:function(){ vcRoute([v], true); }}; });
+  if (fd.type === 'status') chips = ['Trống', 'Đang thuê', 'Chuẩn bị trả', 'Đã nhận cọc'].map(function(v){ return {label:v, fn:function(){ vcRoute([v], true); }}; });
+  chips.push({label:'↩ Chọn mục khác', fn:function(){ vcAskField(); }});
+  var q = fd.label + ' mới là gì?';
+  vcShow({prompt:(pre ? pre + ' ' : '') + q, tone:pre ? 'warn' : '', sub:'Phòng ' + r.name + ' · Hiện tại: ' + vcCurValue(fd, r, m) + hint, chips:chips});
+  vcSay((pre ? pre + ' ' : '') + q, vcListen);
+}
+function vcTryValue(alts){
+  var c = VC.ctx, fd = vcFieldDef(c.field), low = vcLow(alts[0]);
+  if (vcStarts(low, ['chọn mục khác','mục khác','sửa cái khác','sửa mục khác'])){ vcAskField(); return true; }
+  var pv = null, raw = null;
+  for (var i = 0; i < alts.length; i++){
+    var a = alts[i], fm = vcMatchField(a);
+    // "tên mới là Nguyễn Văn An" → bỏ phần "tên mới là"
+    if (fm && fm.fd.k === fd.k && fm.start <= 1){ var v = vcValueAfter(a, fm.end, false); if (v) a = v; }
+    else { var mk = /^(là|thành|mới là)\s+/i.exec(a); if (mk) a = a.slice(mk[0].length); }
+    pv = vcParseValue(fd, a); raw = a;
+    if (pv.ok || fd.type === 'name' || fd.type === 'text') break;
+  }
+  if (!pv.ok){ vcRetry(function(){ vcAskValue(pv.msg); }); return true; }
+  c.value = raw; c.parsed = pv;
+  vcEditConfirm();
+  return true;
+}
+function vcEditConfirm(){
+  var c = VC.ctx, r = vcRoom(c.roomId), fd = vcFieldDef(c.field), m = c.month || selectedMonth;
+  VC.mode = 'confirm';
+  VC.confirm = {
+    prompt:'Lưu ' + fd.label + (fd.o === 'u' ? ' tháng ' + m : '') + ' mới?',
+    subHtml:'Phòng <b>' + escH(r.name) + '</b>: ' + escH(vcCurValue(fd, r, m)) + ' → <b style="color:#4f46e5">' + escH(c.parsed.show) + '</b>',
+    say:fd.label + ': ' + c.parsed.show + '. Lưu nhé?',
+    yes:vcEditApply,
+    no:function(){ c.value = null; vcAskValue(); },
+    other:function(alts){ return vcTryValue(alts); }        // nói luôn giá trị khác = sửa lại
+  };
+  vcShowConfirm();
+}
+function vcEditApply(){
+  var c = VC.ctx, r = vcRoom(c.roomId), fd = vcFieldDef(c.field), v = c.parsed.value, m = c.month || selectedMonth;
+  if (fd.o === 'c'){ var cu = getCustomer(r.customerId); if (cu) cu[fd.k] = v; }
+  else if (fd.o === 'r') r[fd.k] = v;
+  else vcSetReading(r.id, m, fd.k, v);
+  render();
+  showToast('Đã lưu ' + fd.label + ' phòng ' + r.name, 'success');
+  vcBeep(true);
+  vcAskField('Đã lưu.');                                    // hỏi sửa thêm mục khác
+}
+
+// Xác nhận chung (đồng ý / không / huỷ)
+function vcShowConfirm(again){
+  var k = VC.confirm;
+  VC.mode = 'confirm';
+  vcShow({prompt:(again ? 'Nói “đồng ý” hoặc “không”. ' : '') + k.prompt, subHtml:k.subHtml, tone:k.tone,
+    chips:k.no === vcCancel ? [{label:'✓ ' + (k.yesLabel || 'Lưu'), cls:'pri', fn:k.yes}, {label:'✕ Không', fn:vcCancel}]
+                            : [{label:'✓ ' + (k.yesLabel || 'Lưu'), cls:'pri', fn:k.yes}, {label:'🎤 Nói lại', fn:k.no}, {label:'✕ Huỷ', fn:vcCancel}]});
+  vcSay(again ? 'Đồng ý hay không?' : k.say, vcListen);
+}
+function vcTryConfirm(alts){
+  var k = VC.confirm, low = vcLow(alts[0]);
+  if (vcIsYes(low)){ k.yes(); return true; }
+  if (vcIsNo(low)){ k.no(); return true; }
+  return k.other ? k.other(alts) : false;
+}
+
+// Thu tiền
+function vcPayConfirm(){
+  var c = VC.ctx, r = vcRoom(c.roomId), m = c.month || selectedMonth, paid = isPaid(r.id, m), mark = c.action === 'mark_paid';
+  if (mark && paid) return vcDone('Phòng ' + r.name + ' tháng ' + m + ' đã thu rồi.');
+  if (!mark && !paid) return vcDone('Phòng ' + r.name + ' tháng ' + m + ' chưa thu.');
+  if (mark && !vcRented(r, m)) return vcDone('Phòng ' + r.name + ' không có khách thuê tháng ' + m + '.', true);
+  var total = calcInvoice(r, m).total;
+  VC.confirm = {
+    prompt:mark ? 'Xác nhận ĐÃ THU tiền?' : 'Huỷ trạng thái đã thu?',
+    subHtml:'Phòng <b>' + escH(r.name) + '</b> · Tháng ' + m + ' · <b>' + fmt(total) + '</b>',
+    say:'Phòng ' + r.name + ' tháng ' + m + ', ' + fmtNum(total) + ' đồng. ' + (mark ? 'Xác nhận đã thu?' : 'Huỷ đã thu?'),
+    yesLabel:'Đồng ý',
+    yes:function(){ togglePayment(r.id, m); vcDone(mark ? 'Đã ghi nhận thu tiền phòng ' + r.name + '.' : 'Đã huỷ thu tiền phòng ' + r.name + '.'); },
+    no:vcCancel, other:null
+  };
+  vcShowConfirm();
+}
+
+// Ghi điện nước một phòng
+function vcCheckReading(rid, m, f, v){
+  var prev = vcU(rid, vcPrevMonth(m))[f], name = f === 'e' ? 'điện' : 'nước';
+  if (prev === '' || prev == null) return null;
+  prev = Number(prev);
+  if (v < prev) return 'Chỉ số ' + name + ' ' + fmtNum(v) + ' nhỏ hơn tháng trước (' + fmtNum(prev) + ').';
+  if (v - prev > (f === 'e' ? 800 : 60)) return 'Dùng ' + fmtNum(v - prev) + (f === 'e' ? ' kWh' : ' khối') + ' — cao bất thường.';
+  return null;
+}
+function vcSetReading(rid, m, f, v){
+  if (!utilities[rid]) utilities[rid] = {};
+  if (!utilities[rid][m]) utilities[rid][m] = {e:'', w:''};
+  utilities[rid][m][f] = String(v);
+  var inp = document.querySelector('.num-input[data-k="' + rid + '|' + m + '|' + f + '"]');
+  if (inp){ inp.value = numFmt(v); inp.classList.add('vc-flash'); setTimeout(function(){ inp.classList.remove('vc-flash'); }, 900); }
+  saveState();
+}
+function vcAskUtil(){
+  var c = VC.ctx, r = vcRoom(c.roomId);
+  VC.mode = 'ask-util';
+  vcShow({prompt:'Số ' + fmtNum(c.reading) + ' là điện hay nước?', sub:'Phòng ' + r.name + ' · Tháng ' + (c.month || selectedMonth),
+    chips:[{label:'⚡ Điện', fn:function(){ c.util = 'e'; vcUtilCmd(); }}, {label:'💧 Nước', fn:function(){ c.util = 'w'; vcUtilCmd(); }}]});
+  vcSay('Điện hay nước?', vcListen);
+}
+function vcTryUtil(alts){
+  var f = vcF(vcTokens(alts[0])), c = VC.ctx;
+  if (vcHas(f, ['dien'])) c.util = 'e'; else if (vcHas(f, ['nuoc'])) c.util = 'w'; else return false;
+  vcUtilCmd();
+  return true;
+}
+function vcUtilCmd(){
+  var c = VC.ctx, r = vcRoom(c.roomId), m = c.month || selectedMonth, list = [];
+  if (c.readings.e != null) list.push(['e', c.readings.e]);
+  if (c.readings.w != null) list.push(['w', c.readings.w]);
+  if (!list.length){ if (!c.util) return vcAskUtil(); list.push([c.util, c.reading]); }
+  var warn = list.map(function(x){ return vcCheckReading(r.id, m, x[0], x[1]); }).filter(Boolean)[0];
+  var msg = list.map(function(x){ return (x[0] === 'e' ? 'điện ' : 'nước ') + fmtNum(x[1]); }).join(', ');
+  function save(){
+    list.forEach(function(x){ vcSetReading(r.id, m, x[0], x[1]); });
+    if (activeTab === 'utilities') render();
+    showToast('Đã ghi ' + r.name + ' T' + m + ': ' + msg, 'success');
+    vcDone('Đã ghi phòng ' + r.name + ' tháng ' + m + ': ' + msg + '.');
+  }
+  if (!warn) return save();
+  VC.confirm = {prompt:'Vẫn lưu?', tone:'warn', subHtml:'⚠ ' + escH(warn) + '<br>Phòng <b>' + escH(r.name) + '</b> · tháng ' + m + ': ' + escH(msg),
+    say:warn + ' Vẫn lưu?', yes:save, no:vcCancel, other:null};
+  vcShowConfirm();
+}
+
+// ── GHI CHỈ SỐ LẦN LƯỢT TỪNG PHÒNG (không cần đọc mã phòng) ──
+function vcSeqFields(){ return vcPrefs.seqOrder === 'e' ? ['e'] : vcPrefs.seqOrder === 'w' ? ['w'] : ['e', 'w']; }
+function vcSeqList(){ return rooms.filter(function(r){ return !vcPrefs.seqSkipEmpty || !(r.status === 'Trống' || r.status === 'Trong'); }).map(function(r){ return r.id; }); }
+function vcSeqStart(){
+  if (!VC.open) vcOpen();
+  if (activeTab !== 'utilities') switchTab('utilities');
+  var list = vcSeqList(), fs = vcSeqFields();
+  if (!list.length) return vcDone('Không có phòng nào để ghi.', true);
+  var s = VC.seq = {list:list, idx:0, f:fs[0], warn:null, askLetter:null};
+  // Bắt đầu từ ô còn trống đầu tiên của tháng đang chọn
+  for (var i = 0; i < list.length; i++){
+    var u = vcU(list[i], selectedMonth), fe = fs.filter(function(f){ return u[f] === '' || u[f] == null; })[0];
+    if (fe){ s.idx = i; s.f = fe; break; }
+  }
+  VC.mode = 'seq'; VC.ctx = null; VC.tries = 0; VC.misses = 0;
+  vcSeqPrompt(true, 'Bắt đầu ghi chỉ số tháng ' + selectedMonth);
+}
+function vcSeqRoom(){ var s = VC.seq; return vcRoom(s.list[s.idx]); }
+function vcSeqAdvance(){
+  var s = VC.seq, fs = vcSeqFields(), k = fs.indexOf(s.f);
+  if (k >= 0 && k < fs.length - 1){ s.f = fs[k + 1]; return true; }
+  s.idx++; s.f = fs[0];
+  return s.idx < s.list.length;
+}
+function vcSeqBack(){
+  var s = VC.seq, fs = vcSeqFields(), k = fs.indexOf(s.f);
+  if (k > 0){ s.f = fs[k - 1]; return; }
+  if (s.idx > 0){ s.idx--; s.f = fs[fs.length - 1]; }
+}
+function vcSeqJump(rid, f){
+  var s = VC.seq, i = s.list.indexOf(rid);
+  if (i < 0){ s.list.splice(s.idx, 0, rid); i = s.idx; }
+  s.idx = i; s.f = f || vcSeqFields()[0];
+}
+function vcSeqHighlight(){
+  document.querySelectorAll('.num-input.vc-cur').forEach(function(el){ el.classList.remove('vc-cur'); });
+  if (VC.mode !== 'seq' || !VC.seq) return;
+  var r = vcSeqRoom(); if (!r) return;
+  var inp = document.querySelector('.num-input[data-k="' + r.id + '|' + selectedMonth + '|' + VC.seq.f + '"]');
+  if (inp){ inp.classList.add('vc-cur'); vcScrollTo(inp); }
+}
+// Cuộn để ô đang ghi nằm giữa bảng và ở ~1/3 trên màn hình (không bị bảng giọng nói che).
+// Cuộn tức thì: bảng có scroll-behavior: smooth, cuộn mượt dễ bị render() cắt ngang.
+function vcScrollTo(inp){
+  var box = document.getElementById('util-scroll-container');
+  if (box){
+    var br = box.getBoundingClientRect(), ir = inp.getBoundingClientRect();
+    box.style.scrollBehavior = 'auto';
+    box.scrollLeft += (ir.left - br.left) - (br.width - ir.width) / 2;
+    box.scrollTop += (ir.top - br.top) - (br.height - ir.height) / 2;
+    box.style.scrollBehavior = '';
+  }
+  var dy = inp.getBoundingClientRect().top - window.innerHeight * 0.3;
+  var main = document.querySelector('main');
+  if (main && getComputedStyle(main).overflowY !== 'visible' && main.scrollHeight > main.clientHeight + 4) main.scrollTop += dy;
+  else window.scrollBy(0, dy);
+}
+function vcSeqPrompt(speak, pre){
+  var s = VC.seq, r = vcSeqRoom(), m = selectedMonth;
+  if (!r) return vcSeqStop();
+  VC.mode = 'seq';
+  var u = vcU(r.id, m), pu = vcU(r.id, vcPrevMonth(m)), isE = s.f === 'e';
+  var orderLbl = {ew:'Điện → Nước', e:'Chỉ điện', w:'Chỉ nước'};
+  var sub = 'Tháng trước: ' + (pu[s.f] !== '' && pu[s.f] != null ? fmtNum(pu[s.f]) : '—') +
+    (u[s.f] !== '' && u[s.f] != null ? ' · Đang có: ' + fmtNum(u[s.f]) : '') + ' · Phòng ' + (s.idx + 1) + '/' + s.list.length;
+  vcShow({
+    html:'<div class="vc-seq"><span class="vc-seq-room">' + escH(r.name) + '</span><span class="vc-seq-field ' + (isE ? 'e' : 'w') + '">' + (isE ? '⚡ Điện' : '💧 Nước') + '</span><span class="vc-seq-month">Tháng ' + m + '</span></div>' + (pre ? '<div class="vc-seq-pre">' + escH(pre) + '</div>' : ''),
+    sub:sub,
+    chips:[
+      {label:'⏭ Bỏ qua', fn:function(){ vcRoute(['bỏ qua'], true); }},
+      {label:'⏮ Lùi', fn:function(){ vcRoute(['lùi'], true); }},
+      {label:isE ? '💧 Sang nước' : '⚡ Sang điện', fn:function(){ s.f = isE ? 'w' : 'e'; vcSeqPrompt(true); }},
+      {label:'Thứ tự: ' + orderLbl[vcPrefs.seqOrder], fn:function(){ var nx = {ew:'e', e:'w', w:'ew'}[vcPrefs.seqOrder]; vcSetPref('seqOrder', nx); if (vcSeqFields().indexOf(s.f) < 0) s.f = vcSeqFields()[0]; vcSeqPrompt(false); }},
+      {label:(vcPrefs.seqSkipEmpty ? '☑' : '☐') + ' Bỏ phòng trống', fn:function(){ var cur = s.list[s.idx]; vcSetPref('seqSkipEmpty', !vcPrefs.seqSkipEmpty); s.list = vcSeqList(); var i = s.list.indexOf(cur); s.idx = i >= 0 ? i : Math.min(s.idx, s.list.length - 1); vcSeqPrompt(false); }},
+      {label:'⏹ Dừng', cls:'warn', fn:function(){ vcSeqStop(); }}
+    ]
+  });
+  vcSeqHighlight(); setTimeout(vcSeqHighlight, 130);       // chạy lại sau lần cuộn ngang của render()
+  if (speak) vcSay((pre ? pre + '. ' : '') + r.name + (isE ? ' điện' : ' nước'), vcListen);
+  else vcListen();
+}
+function vcSeqStop(msg){
+  VC.seq = null; VC.mode = 'cmd';
+  document.querySelectorAll('.num-input.vc-cur').forEach(function(el){ el.classList.remove('vc-cur'); });
+  render();
+  vcDone(msg || 'Đã dừng ghi chỉ số.');
+}
+function vcSeqSave(v, force){
+  var s = VC.seq, r = vcSeqRoom(), m = selectedMonth;
+  if (!force){
+    var w = vcCheckReading(r.id, m, s.f, v);
+    if (w){
+      s.warn = {v:v};
+      vcBeep(false);
+      vcShow({html:'<div class="vc-seq"><span class="vc-seq-room">' + escH(r.name) + '</span><span class="vc-seq-field ' + s.f + '">' + (s.f === 'e' ? '⚡ Điện' : '💧 Nước') + '</span></div>',
+        tone:'warn', subHtml:'⚠ ' + escH(w) + '<br>Nói <b>“đúng”</b> để giữ số <b>' + fmtNum(v) + '</b>, hoặc đọc lại số khác.',
+        chips:[{label:'✓ Giữ ' + fmtNum(v), cls:'pri', fn:function(){ vcRoute(['đúng'], true); }}, {label:'🎤 Đọc lại', fn:function(){ s.warn = null; vcSeqPrompt(true); }}, {label:'⏹ Dừng', cls:'warn', fn:function(){ vcSeqStop(); }}]});
+      vcSay(w + ' Nói đúng để giữ, hoặc đọc lại.', vcListen);
+      return;
+    }
+  }
+  vcSetReading(r.id, m, s.f, v);
+  vcBeep(true);
+  var said = vcPrefs.readback ? fmtNum(v) : '';
+  if (!vcSeqAdvance()) return vcSeqStop('Đã ghi xong tất cả phòng tháng ' + m + '.');
+  vcSeqPrompt(true, said);
+}
+function vcSeqTry(alts){
+  var s = VC.seq, low = vcLow(alts[0]), tk = vcTokens(alts[0]), f = vcF(tk), idx;
+  if (vcIsStop(low)){ vcSeqStop(); return true; }
+  if (s.warn){
+    var w = s.warn; s.warn = null;
+    if (vcIsYes(low)){ vcSeqSave(w.v, true); return true; }
+    if (vcIsNo(low)){ vcSeqPrompt(true, 'Đọc lại số'); return true; }
+  }
+  if (s.askLetter){                                   // vừa hỏi "Phòng A số mấy?"
+    var L = s.askLetter; s.askLetter = null; idx = vcRoomIndex();
+    var rn = vcSmallNum(tk, 0, idx.max[L]);
+    if (rn && idx.map[L][rn.n]){ vcSeqJump(idx.map[L][rn.n]); vcSeqPrompt(true); return true; }
+  }
+  if (vcHas(f, ['bo qua','qua','tiep','ke tiep','next','skip','khong co','phong ke'])){
+    if (!vcSeqAdvance()) { vcSeqStop('Đã tới phòng cuối.'); return true; }
+    vcSeqPrompt(true); return true;
+  }
+  if (vcHas(f, ['lui','quay lai','phong truoc','back'])){ vcSeqBack(); vcSeqPrompt(true); return true; }
+  if (vcHas(f, ['xoa'])){ var r0 = vcSeqRoom(); vcSetReading(r0.id, selectedMonth, s.f, ''); vcSeqPrompt(true, 'Đã xoá'); return true; }
+  var mo = vcTakeMonth(tk);
+  if (mo && tk.length <= 3){ setMonth(mo.m); vcSeqPrompt(true, 'Tháng ' + mo.m); return true; }
+  if (tk.length <= 2 && vcReading(tk) == null){
+    if (vcHas(f, ['dien'])){ s.f = 'e'; vcSeqPrompt(true); return true; }
+    if (vcHas(f, ['nuoc'])){ s.f = 'w'; vcSeqPrompt(true); return true; }
+  }
+  var rm = vcFindRoom(tk, true);
+  if (rm && rm.roomId){                               // "phòng B12" / "B12 1234" / "C3 nước 56"
+    var rest = tk.slice(rm.end), fsw = null;
+    if (rest[0] === 'dien'){ fsw = 'e'; rest = rest.slice(1); } else if (rest[0] === 'nuoc'){ fsw = 'w'; rest = rest.slice(1); }
+    vcSeqJump(rm.roomId, fsw);
+    var v0 = vcReading(rest);
+    if (v0 != null) vcSeqSave(v0); else vcSeqPrompt(true);
+    return true;
+  }
+  if (rm && rm.partial && tk.length <= 2 && vcReading(tk.slice(rm.end)) == null){   // nghe thành "À"
+    s.askLetter = rm.letter;
+    var q = 'Phòng ' + rm.letter.toUpperCase() + ' số mấy?';
+    vcShow({prompt:q, sub:'Đang ghi chỉ số tháng ' + selectedMonth, chips:[{label:'↩ Tiếp tục ghi', fn:function(){ s.askLetter = null; vcSeqPrompt(false); }}]});
+    vcSay(q, vcListen);
+    return true;
+  }
+  for (var i = 0; i < alts.length; i++){
+    var v = vcReading(vcTokens(alts[i]));
+    if (v != null){ vcSeqSave(v); return true; }
+  }
+  return false;
+}
+function vcAfterRender(){ if (VC.mode === 'seq') setTimeout(vcSeqHighlight, 120); }
+
+// ── CÀI ĐẶT GIỌNG NÓI (hiển thị trong tab Cài đặt) ─────────
+function vcSettingsHTML(){
+  var p = vcPrefs;
+  function chk(k, label){ return '<label class="flex items-center gap-2 text-sm" style="cursor:pointer"><input type="checkbox"' + (p[k] ? ' checked' : '') + ' onchange="vcSetPref(\'' + k + '\', this.checked)"> ' + label + '</label>'; }
+  var h = '<div class="card p-6 border-l-4" style="border-left-color:#f43f5e">';
+  h += '<h3 class="font-bold text-lg text-gray-800 mb-2">🎤 Trợ lý giọng nói</h3>';
+  h += '<p class="text-sm text-gray-500 mb-4">Bấm nút 🎤 góc phải để ra lệnh. Mặc định <b>miễn phí</b>: Chrome nghe, app tự hiểu lệnh ngay trên máy (đã chỉnh cho giọng miền Nam).</p>';
+  h += '<div class="space-y-3">';
+  h += '<div><label class="fl">Bộ nghe giọng nói</label><select class="form-control" onchange="vcSetPref(\'engine\', this.value)">' +
+    '<option value="chrome"' + (p.engine !== 'gemini' ? ' selected' : '') + '>Chrome — miễn phí, nhanh (mặc định)</option>' +
+    '<option value="gemini"' + (p.engine === 'gemini' ? ' selected' : '') + '>Gemini AI — miễn phí, nghe mã phòng chuẩn hơn (cần key)</option></select></div>';
+  h += '<div><label class="fl">Gemini API key (miễn phí) — <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="color:#4f46e5">lấy key tại Google AI Studio</a></label>' +
+    '<div class="flex gap-2"><input type="password" class="form-control" placeholder="AIza..." value="' + escH(p.geminiKey) + '" oninput="vcSetPref(\'geminiKey\', this.value.trim())">' +
+    '<button class="btn btn-outline" onclick="vcTestGemini()">Thử</button></div>' +
+    '<div class="text-xs text-gray-500 mt-2">Có key thì: chọn Gemini ở trên để Gemini nghe trực tiếp; hoặc để Chrome nghe, khi câu lệnh không hiểu app mới nhờ Gemini sửa. Key chỉ lưu trên máy này, không xuất JSON, không đẩy lên mây. Khi dùng, câu nói và danh sách mã phòng được gửi tới Google.</div></div>';
+  h += '<div><label class="fl">Model Gemini</label><select class="form-control" onchange="vcSetPref(\'geminiModel\', this.value)">' +
+    [['gemini-flash-lite-latest', 'Flash-Lite — nhanh, nhiều lượt miễn phí'], ['gemini-flash-latest', 'Flash — chính xác hơn, chậm hơn']].map(function(o){ return '<option value="' + o[0] + '"' + (p.geminiModel === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>';
+  h += chk('tts', 'Đọc câu hỏi / phản hồi bằng giọng nói (cần giọng tiếng Việt trên máy)');
+  h += chk('fast', 'Xử lý ngay khi câu lệnh đã đủ ý (nhanh hơn, không chờ Chrome chốt câu)');
+  h += chk('readback', 'Đọc lại số vừa ghi khi ghi chỉ số điện nước');
+  h += '</div></div>';
+  return h;
+}
+function vcTestGemini(){
+  if (!vcPrefs.geminiKey){ showToast('Dán Gemini API key trước đã!', 'error'); return; }
+  showToast('Đang thử Gemini...', 'info');
+  vcGemini([{text:'Bản nhận dạng (có thể sai): "cóp pi ảnh hoá đơn tháng chín phòng xê ba"'}], 'Hãy chép lại câu đúng.')
+    .then(function(t){ showToast('Gemini OK: ' + t, 'success'); })
+    .catch(function(e){ showToast(e.message, 'error'); });
+}
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && VC.open) vcClose(); });
 </script>
 <script>
   if ('serviceWorker' in navigator) {
